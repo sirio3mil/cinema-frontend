@@ -2,8 +2,11 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
-import { User } from '@/_models';
+import { User } from '../_models';
+
+const APIEndpoint = environment.APIEndpoint;
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -20,9 +23,9 @@ export class AuthenticationService {
     }
 
     login(username, password) {
-        return this.http.post<any>(`${config.apiUrl}/oauth`, { username, password })
+        return this.http.post<any>(`${APIEndpoint}/oauth`, { username, password })
             .pipe(map(user => {
-                let owner = new User();
+                const owner = new User();
                 owner.token = user.access_token;
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(owner));
