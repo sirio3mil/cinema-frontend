@@ -21,8 +21,8 @@ export class SearchComponent implements OnInit {
     private searchService: SearchService
   ) {
     // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+    if (!this.authenticationService.currentUserValue) {
+      this.router.navigate(['/login']);
     }
   }
 

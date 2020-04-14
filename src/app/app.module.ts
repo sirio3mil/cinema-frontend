@@ -10,6 +10,7 @@ import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { AlertComponent } from './_components';
 import {GraphQLModule} from './graphql.module';
+import {SearchComponent} from './search';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {GraphQLModule} from './graphql.module';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AlertComponent
+    AlertComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

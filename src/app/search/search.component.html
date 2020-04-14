@@ -14,3 +14,8 @@
     </button>
   </div>
 </form>
+<ul>
+  <li *ngFor="let result of (results | async)">
+    {{result.searchParam}}
+  <li>
+</ul>
