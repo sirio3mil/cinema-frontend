@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {AlertService, AuthenticationService} from './_services';
+import {AlertService, AuthenticationService, SearchResult, SearchService} from './_services';
 import { User } from './_models';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +17,14 @@ export class AppComponent {
   searchForm: FormGroup;
   searching = false;
   submitted = false;
+  results: Observable<SearchResult[]>;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private searchService: SearchService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.searchForm = this.formBuilder.group({
@@ -38,15 +42,23 @@ export class AppComponent {
 
   onSubmit() {
     this.submitted = true;
-
     // reset alerts on submit
     this.alertService.clear();
-
     // stop here if form is invalid
     if (this.searchForm.invalid) {
       return;
     }
-
     this.searching = true;
+    this.results = this.searchService.watch({
+      pattern: this.f.pattern
+    })
+      .valueChanges
+      .pipe(
+        map(result => {
+          this.searching = false;
+          this.submitted = false;
+          return result.data.results;
+        })
+      );
   }
 }

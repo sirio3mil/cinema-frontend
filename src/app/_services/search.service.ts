@@ -1,65 +1,94 @@
-import {Apollo} from 'apollo-angular';
+import {Injectable} from '@angular/core';
+import {Query} from 'apollo-angular';
 import gql from 'graphql-tag';
 
-export class SearchService {
-  results: any[];
-  loading = true;
-  error: any;
+export interface SearchResult {
+  searchParam: string;
+  object: {
+    tape: {
+      tapeId: number;
+      originalTitle: string;
+      detail: {
+        year: number;
+        duration: number;
+      };
+      tapeUser: {
+        tapeUserId: number;
+        history: {
+          tapeUserHistoryId: number;
+          details: [{
+            visible: boolean;
+            exported: boolean;
+            place: {
+              placeId: number;
+              description: string;
+            }
+          }];
+          tapeUserStatus: {
+            tapeUserStatusId: number;
+            description: string;
+          };
+        };
+      };
+    };
+    imdbNumber: {
+      imdbNumber: bigint
+    };
+  };
+}
+export interface Response {
+  results: SearchResult[];
+}
 
-  constructor(private apollo: Apollo) {}
-
-  getAll(pattern) {
-    this.apollo
-    .watchQuery({
-      query: gql`
-        {
-          search(
-            pattern: ${pattern},
-            rowType: 4
-          ){
-            searchParam
-            object{
-              tape{
-                tapeId
-                originalTitle
-                detail{
-                  year
-                  duration
-                }
-                tapeUser(
-                  user: 1
-                ){
-                  tapeUserId
-                  history{
-                    tapeUserHistoryId
-                    details{
-                      visible
-                      exported
-                      place{
-                        placeId
-                        description
-                      }
-                    }
-                    tapeUserStatus{
-                      tapeUserStatusId
-                      description
-                    }
+@Injectable({
+  providedIn: 'root',
+})
+export class SearchService extends Query<Response> {
+  document = gql`
+    query search(
+      $pattern: String!,
+      $rowType: Int!,
+      $userId: UserID!
+    ){
+      search(
+        pattern: $pattern,
+        rowType: $rowType
+      ){
+        searchParam
+        object{
+          tape{
+            tapeId
+            originalTitle
+            detail{
+              year
+              duration
+            }
+            tapeUser(
+              user: $userId
+            ){
+              tapeUserId
+              history{
+                tapeUserHistoryId
+                details{
+                  visible
+                  exported
+                  place{
+                    placeId
+                    description
                   }
                 }
-              }
-              imdbNumber{
-                imdbNumber
+                tapeUserStatus{
+                  tapeUserStatusId
+                  description
+                }
               }
             }
           }
+          imdbNumber{
+            imdbNumber
+          }
         }
-      `,
-    })
-    .valueChanges.subscribe(result => {
-      // @ts-ignore
-      this.results = result.data && result.data.search;
-      this.loading = result.loading;
-      this.error = result.errors;
-    });
-  }
+      }
+    }
+  `;
 }
