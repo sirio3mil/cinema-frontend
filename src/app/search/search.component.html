@@ -14,8 +14,10 @@
     </button>
   </div>
 </form>
-<ul [hidden]="!results">
-  <li *ngFor="let result of (results | async)">
-    {{result.searchParam}}
-  <li>
-</ul>
+<ng-container *ngIf="results | async as searchValues">
+  <ul>
+    <li *ngFor="let searchValue of searchValues">
+      {{searchValue.searchParam}}
+    </li>
+  </ul>
+</ng-container>

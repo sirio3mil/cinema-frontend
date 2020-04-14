@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
       .pipe(map(result => {
         this.searching = false;
         this.submitted = false;
-        console.log(result);
+        console.log(result.data.search);
         return result.data.search;
       }));
   }
