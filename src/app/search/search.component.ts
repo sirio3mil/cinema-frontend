@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AlertService, AuthenticationService, SearchResult, SearchService, UserService} from '../_services';
+import {AlertService, AuthenticationService, SearchService, UserService} from '../_services';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {SearchValue} from '../_models';
 
 @Component({ templateUrl: 'search.component.html' })
 export class SearchComponent implements OnInit {
   searchForm: FormGroup;
   searching = false;
   submitted = false;
-  results: Observable<SearchResult[]>;
+  results: Observable<SearchValue[]>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,12 +46,17 @@ export class SearchComponent implements OnInit {
     }
     this.searching = true;
     const variables = {
-      pattern: this.f.pattern,
+      pattern: this.f.pattern.value,
       rowType: 4,
       userId: 1
     };
     this.results = this.searchService.watch(variables)
       .valueChanges
-      .pipe(map(result => result.data.results));
+      .pipe(map(result => {
+        this.searching = false;
+        this.submitted = false;
+        console.log(result);
+        return result.data.search;
+      }));
   }
 }

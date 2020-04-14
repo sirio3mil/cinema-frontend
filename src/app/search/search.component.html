@@ -14,7 +14,7 @@
     </button>
   </div>
 </form>
-<ul>
+<ul [hidden]="!results">
   <li *ngFor="let result of (results | async)">
     {{result.searchParam}}
   <li>
