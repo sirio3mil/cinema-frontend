@@ -2,4 +2,4 @@
 export * from './authentication.service';
 export * from './user.service';
 export * from './search.service';
-export * from './importImdbMovie.service';
+export * from './import-imdb-movie.service';

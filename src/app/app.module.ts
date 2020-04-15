@@ -11,7 +11,7 @@ import { RegisterComponent } from './register';
 import { AlertComponent } from './_components';
 import {GraphQLModule} from './graphql.module';
 import {SearchComponent} from './search';
-import {ImportImdbMovieComponent} from './importImdbMovie';
+import {ImportImdbMovieComponent} from './import-imdb-movie';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({

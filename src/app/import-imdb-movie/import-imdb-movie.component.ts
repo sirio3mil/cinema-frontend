@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {AlertService, AuthenticationService, ImportImdbMovieService, UserService} from '../_services';
 import {Tape} from '../_models';
 
-@Component({ templateUrl: 'importImdbMovie.component.html' })
+@Component({ templateUrl: 'import-imdb-movie.component.html' })
 export class ImportImdbMovieComponent implements OnInit {
   importForm: FormGroup;
   importing = false;
