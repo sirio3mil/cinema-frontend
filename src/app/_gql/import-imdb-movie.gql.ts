@@ -6,7 +6,7 @@ import {ImportImdbMovieResponse} from '../_models';
 @Injectable({
   providedIn: 'root',
 })
-export class ImportImdbMovieService extends Mutation<ImportImdbMovieResponse> {
+export class ImportImdbMovieGQL extends Mutation<ImportImdbMovieResponse> {
   document = gql`
     mutation importImdbMovie(
       $imdbNumber: Int!

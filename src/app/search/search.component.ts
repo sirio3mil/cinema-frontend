@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AlertService, AuthenticationService, SearchService, UserService} from '../_services';
+import {AlertService} from '../_services';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {SearchValue} from '../_models';
+import {SearchGQL} from '../_gql';
 
 @Component({ templateUrl: 'search.component.html' })
 export class SearchComponent implements OnInit {
@@ -15,11 +15,8 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private userService: UserService,
     private alertService: AlertService,
-    private searchService: SearchService
+    private searchService: SearchGQL
   ) {
   }
 

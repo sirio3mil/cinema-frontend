@@ -6,7 +6,7 @@ import {SearchResponse} from '../_models';
 @Injectable({
   providedIn: 'root',
 })
-export class SearchService extends Query<SearchResponse> {
+export class SearchGQL extends Query<SearchResponse> {
   document = gql`
     query search(
       $pattern: String!,
