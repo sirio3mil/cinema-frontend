@@ -61,6 +61,8 @@ export class ImportImdbMovieComponent implements OnInit {
 
   addTapeUser() {
     const modalRef = this.ngbModal.open(EditTapeUserComponent);
-    modalRef.componentInstance.name = this.tape.originalTitle;
+    modalRef.componentInstance.title = this.tape.originalTitle;
+    modalRef.componentInstance.tapeId = this.tape.tapeId;
+    modalRef.componentInstance.userId = 1;
   }
 }

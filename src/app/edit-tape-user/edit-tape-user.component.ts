@@ -1,10 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AlertService, AuthenticationService, UserService} from '../_services';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({ templateUrl: 'edit-tape-user.component.html' })
 export class EditTapeUserComponent implements OnInit {
+  @Input() tapeId;
+  @Input() userId;
+  @Input() title;
   editForm: FormGroup;
   loading = false;
   submitted = false;
@@ -20,7 +24,8 @@ export class EditTapeUserComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public activeModal: NgbActiveModal
   ) {
   }
 
@@ -34,7 +39,7 @@ export class EditTapeUserComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.editForm.controls; }
 
-  onSubmit() {
+  editTapeUser() {
     this.submitted = true;
     // reset alerts on submit
     this.alertService.clear();
