@@ -5,7 +5,7 @@ import {Tape} from '../_models';
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from '../edit-tape-user';
-import {ImportImdbMovieGQL} from '../_gql/import-imdb-movie.gql';
+import {ImportImdbMovieGQL} from '../_gql';
 
 @Component({templateUrl: 'import-imdb-movie.component.html'})
 export class ImportImdbMovieComponent implements OnInit {
