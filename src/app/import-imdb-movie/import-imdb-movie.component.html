@@ -15,4 +15,5 @@
 </form>
 <ng-container *ngIf="tape">
   <h2>{{tape.originalTitle}}</h2>
+  <a (click)="addTapeUser()"><fa-icon [icon]="faPlusCircle"></fa-icon></a>
 </ng-container>

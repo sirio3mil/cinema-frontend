@@ -14,6 +14,7 @@ import {SearchComponent} from './search';
 import {ImportImdbMovieComponent} from './import-imdb-movie';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {EditTapeUserComponent} from './edit-tape-user';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     RegisterComponent,
     AlertComponent,
     SearchComponent,
-    ImportImdbMovieComponent
+    ImportImdbMovieComponent,
+    EditTapeUserComponent
   ],
   imports: [
     BrowserModule,
