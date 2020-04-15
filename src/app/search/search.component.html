@@ -1,18 +1,17 @@
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
+<form class="form-inline" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <div class="form-group mx-sm-3 mb-2">
     <label>
-      <input type="text" formControlName="pattern" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pattern.errors }" />
+      <input type="text" formControlName="pattern" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f.pattern.errors }"/>
     </label>
     <div *ngIf="submitted && f.pattern.errors" class="invalid-feedback">
       <div *ngIf="f.pattern.errors.required">Username is required</div>
     </div>
   </div>
-  <div class="form-group">
-    <button [disabled]="searching" class="btn btn-primary">
-      <span *ngIf="searching" class="spinner-border spinner-border-sm mr-1"></span>
-      Search
-    </button>
-  </div>
+  <button [disabled]="searching" class="btn btn-primary mb-2">
+    <span *ngIf="searching" class="spinner-border spinner-border-sm mr-1"></span>
+    Search
+  </button>
 </form>
 <ng-container *ngIf="results | async as searchValues">
   <ul>

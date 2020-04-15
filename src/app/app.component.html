@@ -1,10 +1,18 @@
 <!-- nav -->
 <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
   <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="/">Home</a>
-    <a class="nav-item nav-link" routerLink="/search">Search</a>
-    <a class="nav-item nav-link" routerLink="/importImdbMovie">Import tape</a>
-    <a class="nav-item nav-link" (click)="logout()">Logout</a>
+    <a class="nav-item nav-link" routerLink="/">
+      <fa-icon [icon]="faHome"></fa-icon>
+    </a>
+    <a class="nav-item nav-link" routerLink="/search">
+      <fa-icon [icon]="faSearch"></fa-icon>
+    </a>
+    <a class="nav-item nav-link" routerLink="/importImdbMovie" title="import tape">
+      <fa-icon [icon]="faFileImport"></fa-icon>
+    </a>
+    <a class="nav-item nav-link" (click)="logout()">
+      <fa-icon [icon]="faSignOutAlt"></fa-icon>
+    </a>
   </div>
 </nav>
 
@@ -23,7 +31,8 @@
 <!-- credits -->
 <div class="text-center">
   <p>
-    <a href="https://jasonwatmore.com/post/2019/06/10/angular-8-user-registration-and-login-example-tutorial" target="_top">Angular 8 - User Registration and Login Example & Tutorial</a>
+    <a href="https://jasonwatmore.com/post/2019/06/10/angular-8-user-registration-and-login-example-tutorial"
+       target="_top">Angular 8 - User Registration and Login Example & Tutorial</a>
   </p>
   <p>
     <a href="https://jasonwatmore.com" target="_top">JasonWatmore.com</a>

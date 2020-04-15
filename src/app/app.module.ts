@@ -12,6 +12,7 @@ import { AlertComponent } from './_components';
 import {GraphQLModule} from './graphql.module';
 import {SearchComponent} from './search';
 import {ImportImdbMovieComponent} from './importImdbMovie';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {ImportImdbMovieComponent} from './importImdbMovie';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    GraphQLModule
+    GraphQLModule,
+    FontAwesomeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthenticationService } from './_services';
-import { User } from './_models';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthenticationService} from './_services';
+import {User} from './_models';
+import { faHome, faSearch, faSignOutAlt, faFileImport } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,13 @@ import { User } from './_models';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   title = 'cinema-frontend';
+  faHome = faHome;
+  faSearch = faSearch;
+  faSignOutAlt = faSignOutAlt;
+  faFileImport = faFileImport;
+
   currentUser: User;
 
   constructor(
