@@ -148,6 +148,12 @@ type Place {
   placeId: ID!
 }
 
+type PlacePage {
+  elements: [Place]
+  pages: Int
+  total: Int
+}
+
 "Class Premiere"
 type Premiere {
   country: Country
@@ -368,6 +374,12 @@ type TapeUserStatus {
   tapeUserStatusId: ID!
 }
 
+type TapeUserStatusPage {
+  elements: [TapeUserStatus]
+  pages: Int
+  total: Int
+}
+
 "Class TvShow"
 type TvShow {
   chapters: [TvShowChapter!]
@@ -409,7 +421,9 @@ type Mutation {
 }
 
 type Query {
+  listPlace(page: Int!, pageSize: Int!): PlacePage!
   listTapeUser(finished: Boolean, isTvShow: Boolean, page: Int!, pageSize: Int!, placeId: PlaceID, tapeUserStatusId: TapeUserStatusID, userId: UserID!, visible: Boolean): TapeUserPage!
+  listTapeUserStatus(page: Int!, pageSize: Int!): TapeUserStatusPage!
   listTvShowChapterUser(page: Int!, pageSize: Int!, tapeUserStatusId: TapeUserStatusID!, tvShowId: TvShowID!, userId: UserID!): TapeUserPage!
   search(pattern: String!, rowType: Int): [SearchValue]!
   tape(tapeId: TapeID): Tape!
