@@ -13,6 +13,7 @@ import {GraphQLModule} from './graphql.module';
 import {SearchComponent} from './search';
 import {ImportImdbMovieComponent} from './import-imdb-movie';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     AppRoutingModule,
     GraphQLModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgbModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
