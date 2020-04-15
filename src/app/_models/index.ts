@@ -10,3 +10,6 @@ export * from './imdbNumber';
 export * from './globalUniqueObject';
 export * from './searchValue';
 export * from './searchResponse';
+export * from './importImdbMovieResponse';
+export * from './tvShow';
+export * from './tvShowChapter';

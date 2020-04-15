@@ -11,6 +11,7 @@ import { RegisterComponent } from './register';
 import { AlertComponent } from './_components';
 import {GraphQLModule} from './graphql.module';
 import {SearchComponent} from './search';
+import {ImportImdbMovieComponent} from './importImdbMovie';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {SearchComponent} from './search';
     LoginComponent,
     RegisterComponent,
     AlertComponent,
-    SearchComponent
+    SearchComponent,
+    ImportImdbMovieComponent
   ],
   imports: [
     BrowserModule,

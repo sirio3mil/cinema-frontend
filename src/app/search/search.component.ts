@@ -21,10 +21,6 @@ export class SearchComponent implements OnInit {
     private alertService: AlertService,
     private searchService: SearchService
   ) {
-    // redirect to home if already logged in
-    if (!this.authenticationService.currentUserValue) {
-      this.router.navigate(['/login']);
-    }
   }
 
   ngOnInit() {
@@ -55,7 +51,6 @@ export class SearchComponent implements OnInit {
       .pipe(map(result => {
         this.searching = false;
         this.submitted = false;
-        console.log(result.data.search);
         return result.data.search;
       }));
   }
