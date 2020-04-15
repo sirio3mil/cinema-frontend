@@ -13,3 +13,7 @@ export * from './searchResponse';
 export * from './importImdbMovieResponse';
 export * from './tvShow';
 export * from './tvShowChapter';
+export * from './listPlace';
+export * from './listPlaceResponse';
+export * from './listTapeUserStatus';
+export * from './listTapeUserStatusResponse';
