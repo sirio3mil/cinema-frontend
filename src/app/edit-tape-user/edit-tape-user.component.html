@@ -38,9 +38,6 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="activeModal.close('Close click')">
-    Close
-  </button>
   <button [disabled]="loading" ngbAutofocus class="btn btn-primary mb-2" (click)="editTapeUser()">
     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
     Save changes

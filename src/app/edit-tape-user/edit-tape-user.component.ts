@@ -61,15 +61,15 @@ export class EditTapeUserComponent implements OnInit {
     const variables = {
       tapeId: this.tapeId,
       userId: this.userId,
-      tapeUserStatusId: this.f.tapeUserStatus.value,
-      placeId: this.f.place.value
+      tapeUserStatusId: this.f.tapeUserStatus.value.tapeUserStatusId,
+      placeId: this.f.place.value.placeId
     };
     this.editTapeUserService.mutate(variables)
       .subscribe(result => {
         this.loading = false;
         this.submitted = false;
         this.tapeUser = result.data.editTapeUser;
-        this.activeModal.close('Close click');
+        this.activeModal.close(this.tapeUser);
       });
   }
 }

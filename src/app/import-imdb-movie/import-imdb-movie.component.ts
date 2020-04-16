@@ -61,5 +61,9 @@ export class ImportImdbMovieComponent implements OnInit {
     modalRef.componentInstance.title = this.tape.originalTitle;
     modalRef.componentInstance.tapeId = this.tape.tapeId;
     modalRef.componentInstance.userId = 1;
+    modalRef.result
+      .then(result => {
+        this.tape.tapeUser = result;
+      });
   }
 }
