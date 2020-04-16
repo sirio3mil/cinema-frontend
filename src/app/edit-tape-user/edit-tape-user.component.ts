@@ -69,6 +69,7 @@ export class EditTapeUserComponent implements OnInit {
         this.loading = false;
         this.submitted = false;
         this.tapeUser = result.data.editTapeUser;
+        this.activeModal.close('Close click');
       });
   }
 }
