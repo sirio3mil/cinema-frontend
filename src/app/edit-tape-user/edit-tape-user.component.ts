@@ -34,10 +34,14 @@ export class EditTapeUserComponent implements OnInit {
       tapeUserStatus: ['', Validators.required],
       place: ['', Validators.required]
     });
-    this.places$ = this.listPlaceService.watch()
+    const variables = {
+      page: 1,
+      pageSize: 20
+    };
+    this.places$ = this.listPlaceService.watch(variables)
       .valueChanges
       .pipe(map(result => result.data.listPlace.elements));
-    this.tapeUserStatuses$ = this.listTapeUserStatusService.watch()
+    this.tapeUserStatuses$ = this.listTapeUserStatusService.watch(variables)
       .valueChanges
       .pipe(map(result => result.data.listTapeUserStatus.elements));
   }
