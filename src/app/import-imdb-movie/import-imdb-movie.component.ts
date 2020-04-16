@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../_services';
 import {Tape} from '../_models';
-import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import {faPlusCircle, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from '../edit-tape-user';
 import {ImportImdbMovieGQL} from '../_gql';
@@ -64,6 +64,7 @@ export class ImportImdbMovieComponent implements OnInit {
     modalRef.result
       .then(result => {
         this.tape.tapeUser = result;
+        this.faPlusCircle = faCheckCircle;
       });
   }
 }
