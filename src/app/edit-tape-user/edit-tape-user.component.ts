@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AlertService, AuthenticationService, UserService} from '../_services';
+import {AlertService} from '../_services';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({ templateUrl: 'edit-tape-user.component.html' })
@@ -21,9 +20,6 @@ export class EditTapeUserComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private userService: UserService,
     private alertService: AlertService,
     public activeModal: NgbActiveModal
   ) {
