@@ -11,7 +11,7 @@ export class SearchComponent implements OnInit {
   searchForm: FormGroup;
   searching = false;
   submitted = false;
-  results: Observable<SearchValue[]>;
+  searchValues$: Observable<SearchValue[]>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,7 +43,7 @@ export class SearchComponent implements OnInit {
       rowType: 4,
       userId: 1
     };
-    this.results = this.searchService.watch(variables)
+    this.searchValues$ = this.searchService.watch(variables)
       .valueChanges
       .pipe(map(result => {
         this.searching = false;

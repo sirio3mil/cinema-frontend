@@ -13,7 +13,7 @@
     Search
   </button>
 </form>
-<ng-container *ngIf="results | async as searchValues">
+<ng-container *ngIf="searchValues$ | async as searchValues">
   <ul>
     <li *ngFor="let searchValue of searchValues">
       {{searchValue.searchParam}}
