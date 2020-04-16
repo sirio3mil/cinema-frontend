@@ -4,4 +4,5 @@ export interface TapeUserHistoryDetail {
   visible: boolean;
   exported: boolean;
   place: Place;
+  createdAt: Date;
 }

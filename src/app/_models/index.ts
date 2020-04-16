@@ -17,3 +17,5 @@ export * from './listPlace';
 export * from './listPlaceResponse';
 export * from './listTapeUserStatus';
 export * from './listTapeUserStatusResponse';
+export * from './editTapeUserResponse';
+export * from './tapeUserScore';
