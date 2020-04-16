@@ -6,7 +6,7 @@ import {EditTapeUserResponse} from '../_models';
 @Injectable({
   providedIn: 'root',
 })
-export class ImportImdbMovieGQL extends Mutation<EditTapeUserResponse> {
+export class EditTapeUserGql extends Mutation<EditTapeUserResponse> {
   document = gql`
     mutation editTapeUser(
       $userId: UserID!,
