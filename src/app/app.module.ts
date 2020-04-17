@@ -15,6 +15,7 @@ import {ImportImdbMovieComponent} from './import-imdb-movie';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from './edit-tape-user';
+import {ImportImdbEpisodeComponent} from './import-imdb-episode';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {EditTapeUserComponent} from './edit-tape-user';
     AlertComponent,
     SearchComponent,
     ImportImdbMovieComponent,
+    ImportImdbEpisodeComponent,
     EditTapeUserComponent
   ],
   imports: [

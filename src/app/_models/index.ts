@@ -19,3 +19,4 @@ export * from './listTapeUserStatus';
 export * from './listTapeUserStatusResponse';
 export * from './editTapeUserResponse';
 export * from './tapeUserScore';
+export * from './importImdbEpisodeResponse';

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../_services';
 import {Tape} from '../_models';
-import {faPlusCircle, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
+import {faPlusCircle, faCheckCircle, faFileImport} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from '../edit-tape-user';
 import {ImportImdbMovieGQL} from '../_gql';
@@ -13,6 +13,7 @@ export class ImportImdbMovieComponent implements OnInit {
   importing = false;
   submitted = false;
   faPlusCircle = faPlusCircle;
+  faFileImport = faFileImport;
 
   tape: Tape;
   importForm: FormGroup;

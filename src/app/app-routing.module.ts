@@ -7,11 +7,13 @@ import { RegisterComponent } from './register';
 import { AuthGuard } from './_helpers';
 import { SearchComponent } from './search';
 import {ImportImdbMovieComponent} from './import-imdb-movie';
+import {ImportImdbEpisodeComponent} from './import-imdb-episode';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
   { path: 'import-imdb-movie', component: ImportImdbMovieComponent, canActivate: [AuthGuard] },
+  { path: 'import-imdb-episode/:imdbNumber$', component: ImportImdbEpisodeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
