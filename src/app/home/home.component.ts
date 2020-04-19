@@ -1,26 +1,34 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+﻿import {Component, OnInit} from '@angular/core';
+import {map} from 'rxjs/operators';
+import {TapeUser, User} from '../_models';
+import {AuthenticationService} from '../_services';
+import {Observable} from 'rxjs';
+import {ListTapeUserGql} from '../_gql';
 
-import { User } from '../_models';
-import { UserService, AuthenticationService } from '../_services';
-
-@Component({ templateUrl: 'home.component.html' })
+@Component({templateUrl: 'home.component.html'})
 export class HomeComponent implements OnInit {
-    currentUser: User;
+  currentUser: User;
+  tapesUser$: Observable<TapeUser[]>;
 
-    constructor(
-        private authenticationService: AuthenticationService,
-        private userService: UserService
-    ) {
-        this.currentUser = this.authenticationService.currentUserValue;
-    }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private listTapeUserGql: ListTapeUserGql
+  ) {
+    this.currentUser = this.authenticationService.currentUserValue;
+  }
 
-    ngOnInit() {
-
-    }
-
-    deleteUser(id: number) {
-        this.userService.delete(id)
-            .pipe(first());
-    }
+  ngOnInit() {
+    const variables = {
+      userId: 1,
+      tapeUserStatusId: 2,
+      isTvShow: true,
+      visible: true,
+      finished: false,
+      page: 1,
+      pageSize: 50
+    };
+    this.tapesUser$ = this.listTapeUserGql.watch(variables)
+      .valueChanges
+      .pipe(map(result => result.data.listTapeUser.elements));
+  }
 }

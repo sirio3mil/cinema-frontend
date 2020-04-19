@@ -1,2 +1,9 @@
 ﻿<h1>Hi!</h1>
 <p>You're logged in with Angular 9!!</p>
+<ng-container *ngIf="tapesUser$ | async as tapeUsers">
+  <ul>
+    <li *ngFor="let tapeUser of tapeUsers">
+      {{tapeUser.tape.originalTitle}}
+    </li>
+  </ul>
+</ng-container>
