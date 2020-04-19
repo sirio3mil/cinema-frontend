@@ -15,6 +15,8 @@ export * from './tvShow';
 export * from './tvShowChapter';
 export * from './listPlace';
 export * from './listPlaceResponse';
+export * from './listTapeUser';
+export * from './listTapeUserResponse';
 export * from './listTapeUserStatus';
 export * from './listTapeUserStatusResponse';
 export * from './editTapeUserResponse';
