@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AlertService} from '../_services';
 import {map, switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {TapeGql} from '../_gql';
 import {Tape} from '../_models';
@@ -9,8 +9,8 @@ import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 
 @Component({templateUrl: 'tape.component.html'})
 export class TapeComponent implements OnInit {
-  tape$: Observable<Tape>;
-  tapeId$: Observable<string>;
+  tape: Tape;
+  tapeSubscription: Subscription;
 
   faSpinner = faSpinner;
 
@@ -22,15 +22,19 @@ export class TapeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tapeId$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => params.get('tapeId'))
-    );
-    const variables = {
-      tapeId: this.tapeId$,
-      userId: 1
-    };
-    this.tape$ = this.tapeGql.watch(variables)
-      .valueChanges
-      .pipe(map(result => result.data.tape));
+    this.tapeSubscription = this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) => {
+          return this.tapeGql.watch(
+            {
+              tapeId: params.get('tapeId'),
+              userId: 1
+            })
+            .valueChanges
+            .pipe(map(result => result.data.tape));
+        })
+      ).subscribe((tape: Tape) => {
+        this.tape = tape;
+      });
   }
 }

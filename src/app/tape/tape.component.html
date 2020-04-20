@@ -1,4 +1,4 @@
-<ng-container *ngIf="tape$ | async as tape; else loading" >
+<ng-container *ngIf="tape; else loading" >
   <h1>{{tape.originalTitle}}</h1>
 </ng-container>
 <ng-template #loading>
