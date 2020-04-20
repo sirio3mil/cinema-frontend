@@ -22,3 +22,7 @@ export * from './listTapeUserStatusResponse';
 export * from './editTapeUserResponse';
 export * from './tapeUserScore';
 export * from './importImdbEpisodeResponse';
+export * from './country';
+export * from './language';
+export * from './genre';
+export * from './tapeResponse';
