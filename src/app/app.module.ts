@@ -16,6 +16,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from './edit-tape-user';
 import {ImportImdbEpisodeComponent} from './import-imdb-episode';
+import {TapeComponent} from './tape';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {ImportImdbEpisodeComponent} from './import-imdb-episode';
     SearchComponent,
     ImportImdbMovieComponent,
     ImportImdbEpisodeComponent,
-    EditTapeUserComponent
+    EditTapeUserComponent,
+    TapeComponent
   ],
   imports: [
     BrowserModule,

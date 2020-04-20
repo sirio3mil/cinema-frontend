@@ -3,7 +3,9 @@
 <ng-container *ngIf="tapesUser$ | async as tapeUsers">
   <ul>
     <li *ngFor="let tapeUser of tapeUsers">
-      {{tapeUser.tape.originalTitle}}
+      <a [routerLink]="['/tape', tapeUser.tape.tapeId]">
+        {{tapeUser.tape.originalTitle}}
+      </a>
     </li>
   </ul>
 </ng-container>
