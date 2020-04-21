@@ -3,8 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../_services';
 import {TvShowChapter} from '../_models';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 import {ImportImdbEpisodeGql} from '../_gql';
 
 @Component({templateUrl: 'import-imdb-episode.component.html'})
@@ -14,8 +14,9 @@ export class ImportImdbEpisodeComponent implements OnInit {
   submitted = false;
 
   importForm: FormGroup;
-  imdbNumber$: Observable<string>;
+  imdbNumber: number;
   tvShowChapters: TvShowChapter[];
+  subscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,9 +30,11 @@ export class ImportImdbEpisodeComponent implements OnInit {
     this.importForm = this.formBuilder.group({
       seasonNumber: ['', Validators.required]
     });
-    this.imdbNumber$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => params.get('imdbNumber'))
-    );
+    this.subscription = this.route.paramMap.pipe(
+      map((params: ParamMap) => params.get('imdbNumber'))
+    ).subscribe((imdbNumber: string) => {
+      this.imdbNumber = parseInt(imdbNumber, 10);
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -49,8 +52,8 @@ export class ImportImdbEpisodeComponent implements OnInit {
     }
     this.importing = true;
     const variables = {
-      imdbNumber: +this.imdbNumber$,
-      seasonNumber: this.f.seasonNumber.value
+      imdbNumber: this.imdbNumber,
+      seasonNumber: parseInt(this.f.seasonNumber.value, 10)
     };
     this.imdbEpisodeGql.mutate(variables)
       .subscribe(result => {
