@@ -387,16 +387,26 @@ type TvShow {
   createdAt: DateTime!
   finished: Boolean!
   lastChapter: TvShowChapter
+  summaries: [TvShowChapterSummary!]!
+  summaryByUser(user: UserID!): TvShowChapterSummary
   tape: Tape!
 }
 
 "Class TvShowChapter"
 type TvShowChapter {
-  chapter: Int!
+  chapter: Int
   createdAt: DateTime!
   season: Int
   tape: Tape!
   tvShow: TvShow!
+}
+
+"Class TvShowChapterSummary"
+type TvShowChapterSummary {
+  importedChapter: TvShowChapter!
+  tvShow: TvShow!
+  user: User!
+  viewedChapter: TvShowChapter!
 }
 
 "Class User"
@@ -449,11 +459,11 @@ input TvShowPartialInput {
 
 scalar DateTime
 
-"Automatically generated type to be used as input where an object of type `TapeUserStatus` is needed"
-scalar TapeUserStatusID
-
 "Automatically generated type to be used as input where an object of type `User` is needed"
 scalar UserID
+
+"Automatically generated type to be used as input where an object of type `TapeUserStatus` is needed"
+scalar TapeUserStatusID
 
 "Automatically generated type to be used as input where an object of type `People` is needed"
 scalar PeopleID

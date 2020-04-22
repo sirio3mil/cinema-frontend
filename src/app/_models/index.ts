@@ -26,3 +26,4 @@ export * from './country';
 export * from './language';
 export * from './genre';
 export * from './tapeResponse';
+export * from './tvShowChapterSummary';

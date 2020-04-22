@@ -71,10 +71,28 @@ export class TapeGql extends Query<TapeResponse> {
         },
         tvShow{
           chapters{
-            season,
-            chapter,
+            season
+            chapter
             tape {
               tapeId
+            }
+          }
+          summaryByUser(
+            user: $userId
+          ){
+            importedChapter{
+              chapter
+              season
+              tape{
+                originalTitle
+              }
+            }
+            viewedChapter{
+              chapter
+              season
+              tape{
+                originalTitle
+              }
             }
           }
         }
