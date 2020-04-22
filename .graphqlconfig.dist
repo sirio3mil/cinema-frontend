@@ -1,0 +1,16 @@
+{
+  "name": "Cinema GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://cinema.lcl",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "authorization": "Bearer *token*"
+        },
+        "introspect": true
+      }
+    }
+  }
+}
