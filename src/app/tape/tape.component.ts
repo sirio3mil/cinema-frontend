@@ -5,14 +5,11 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {TapeGql} from '../_gql';
 import {Tape} from '../_models';
-import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 
 @Component({templateUrl: 'tape.component.html'})
 export class TapeComponent implements OnInit {
   tape: Tape;
   tapeSubscription: Subscription;
-
-  faSpinner = faSpinner;
 
   constructor(
     private route: ActivatedRoute,
