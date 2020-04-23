@@ -1,6 +1,11 @@
 <ng-container *ngIf="tape; else loading" >
   <h1>{{tape.originalTitle}}</h1>
+
 </ng-container>
 <ng-template #loading>
-  <fa-icon [icon]="faSpinner"></fa-icon>
+  <div class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
 </ng-template>
