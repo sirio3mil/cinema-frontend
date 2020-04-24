@@ -16,7 +16,9 @@
 <ng-container *ngIf="searchValues$ | async as searchValues">
   <ul>
     <li *ngFor="let searchValue of searchValues">
-      {{searchValue.searchParam}}
+      <a [routerLink]="['/tape', searchValue.object.tape.tapeId]">
+        {{searchValue.searchParam}} ({{searchValue.object.tape.detail.year}})
+      </a>
     </li>
   </ul>
 </ng-container>
