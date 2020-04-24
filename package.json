@@ -25,6 +25,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
+    "angular-ts-math": "^1.0.7",
     "apollo-angular": "^1.9.1",
     "apollo-angular-link-http": "^1.10.0",
     "apollo-cache-inmemory": "^1.6.0",
