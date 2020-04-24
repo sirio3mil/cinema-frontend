@@ -7,6 +7,8 @@ import {TapeGql} from '../_gql';
 import {Tape, TvShowChapterSummary} from '../_models';
 import {angularMath} from 'angular-ts-math';
 import {faFileImport} from '@fortawesome/free-solid-svg-icons';
+import {EditSeasonUserComponent} from '../edit-season-user';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 class SeasonDetail {
   number: number;
@@ -26,7 +28,8 @@ export class TapeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private alertService: AlertService,
-    private tapeGql: TapeGql
+    private tapeGql: TapeGql,
+    private ngbModal: NgbModal
   ) {
   }
 
@@ -48,8 +51,9 @@ export class TapeComponent implements OnInit {
           this.summary = tape.tvShow.summaryByUser;
           const importedChapter = this.summary.importedChapter;
           const viewedChapter = this.summary.viewedChapter;
-          const viewedSeason = viewedChapter.season ?? 0;
-          const maxSeason = angularMath.getMaximum(importedChapter.season ?? 0, viewedSeason);
+          const viewedSeason = viewedChapter ? viewedChapter.season : 0;
+          const importedSeason = importedChapter ? importedChapter.season : 0;
+          const maxSeason = angularMath.getMaximum(importedSeason, viewedSeason);
           if (maxSeason > 0) {
             // @ts-ignore
             this.seasons = Array(maxSeason).fill().map((x, i) => {
@@ -57,11 +61,23 @@ export class TapeComponent implements OnInit {
               detail.number = i + 1;
               const season = angularMath.numberToString(detail.number);
               detail.code = season.padStart(2 , '0');
-              detail.viewed = i <= viewedSeason;
+              detail.viewed = detail.number <= viewedSeason;
               return detail;
             });
           }
         }
+      });
+  }
+
+  addSeasonUser(season: SeasonDetail) {
+    const modalRef = this.ngbModal.open(EditSeasonUserComponent);
+    modalRef.componentInstance.title = this.tape.originalTitle;
+    modalRef.componentInstance.tvShowId = this.tape.tapeId;
+    modalRef.componentInstance.seasonNumber = season.number;
+    modalRef.componentInstance.userId = 1;
+    modalRef.result
+      .then(() => {
+        season.viewed = true;
       });
   }
 }

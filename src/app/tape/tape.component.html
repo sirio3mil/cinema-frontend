@@ -1,8 +1,8 @@
 <ng-container *ngIf="tape; else loading" >
   <h1>{{tape.originalTitle}}</h1>
-  <ul *ngIf="seasons.length" class="list-inline">
+  <ul *ngIf="seasons && seasons.length" class="list-inline">
     <li *ngFor="let season of seasons" class="list-inline-item">
-      <a *ngIf="!season.viewed; else viewedSeason">
+      <a *ngIf="!season.viewed; else viewedSeason" (click)="addSeasonUser(season)">
         S{{season.code}}
       </a>
       <ng-template #viewedSeason>

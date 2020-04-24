@@ -17,6 +17,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from './edit-tape-user';
 import {ImportImdbEpisodeComponent} from './import-imdb-episode';
 import {TapeComponent} from './tape';
+import {EditSeasonUserComponent} from './edit-season-user';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {TapeComponent} from './tape';
     SearchComponent,
     ImportImdbMovieComponent,
     ImportImdbEpisodeComponent,
+    EditSeasonUserComponent,
     EditTapeUserComponent,
     TapeComponent
   ],
