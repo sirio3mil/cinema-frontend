@@ -1,6 +1,20 @@
 <ng-container *ngIf="tape; else loading" >
   <h1>{{tape.originalTitle}}</h1>
-
+  <ul *ngIf="seasons.length" class="list-inline">
+    <li *ngFor="let season of seasons" class="list-inline-item">
+      <a *ngIf="!season.viewed; else viewedSeason">
+        S{{season.code}}
+      </a>
+      <ng-template #viewedSeason>
+        S{{season.code}}
+      </ng-template>
+    </li>
+    <li *ngIf="tape.tvShow" class="list-inline-item">
+      <a [routerLink]="['/import-imdb-episode', tape.object.imdbNumber.imdbNumber]">
+        <fa-icon [icon]="faFileImport"></fa-icon>
+      </a>
+    </li>
+  </ul>
 </ng-container>
 <ng-template #loading>
   <div class="text-center">
