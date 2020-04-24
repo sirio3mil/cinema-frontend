@@ -3,10 +3,10 @@ import {AlertService} from '../_services';
 import {map, switchMap} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {TapeGql} from '../_gql';
+import {EditTvShowGql, TapeGql} from '../_gql';
 import {Tape, TvShowChapterSummary} from '../_models';
 import {angularMath} from 'angular-ts-math';
-import {faCheckCircle, faFileImport, faPlusCircle, faClipboardList} from '@fortawesome/free-solid-svg-icons';
+import {faCheckCircle, faFileImport, faPlusCircle, faClipboardList, faHourglassEnd, faLink} from '@fortawesome/free-solid-svg-icons';
 import {EditSeasonUserComponent} from '../edit-season-user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from '../edit-tape-user';
@@ -19,24 +19,30 @@ class SeasonDetail {
 
 @Component({templateUrl: 'tape.component.html'})
 export class TapeComponent implements OnInit {
-  tape: Tape;
-  tapeSubscription: Subscription;
-  seasons: SeasonDetail[];
-  summary: TvShowChapterSummary;
 
   faFileImport = faFileImport;
   faPlusCircle = faPlusCircle;
   faCheckCircle = faCheckCircle;
   faClipboardList = faClipboardList;
+  faHourglassEnd = faHourglassEnd;
+  faLink = faLink;
+
   view = 2;
   whichList = 3;
   viewed = false;
   whichListed = false;
 
+  public imdbUrl: string;
+  public tape: Tape;
+  public tapeSubscription: Subscription;
+  public seasons: SeasonDetail[];
+  public summary: TvShowChapterSummary;
+
   constructor(
     private route: ActivatedRoute,
     private alertService: AlertService,
     private tapeGql: TapeGql,
+    private editTvShowGql: EditTvShowGql,
     private ngbModal: NgbModal
   ) {
   }
@@ -55,6 +61,7 @@ export class TapeComponent implements OnInit {
         })
       ).subscribe((tape: Tape) => {
         this.tape = tape;
+        this.imdbUrl = ('' + tape.object.imdbNumber.imdbNumber).padStart(7, '0');
         this.setTapeUserStatus();
         this.setSeasonDetails();
       });
@@ -100,7 +107,7 @@ export class TapeComponent implements OnInit {
     }
   }
 
-  protected setSeasonDetails(){
+  protected setSeasonDetails() {
     if (this.tape.tvShow && this.tape.tvShow.summaryByUser) {
       this.summary = this.tape.tvShow.summaryByUser;
       const importedChapter = this.summary.importedChapter;
@@ -114,11 +121,22 @@ export class TapeComponent implements OnInit {
           const detail = new SeasonDetail();
           detail.number = i + 1;
           const season = angularMath.numberToString(detail.number);
-          detail.code = season.padStart(2 , '0');
+          detail.code = season.padStart(2, '0');
           detail.viewed = detail.number <= viewedSeason;
           return detail;
         });
       }
     }
+  }
+
+  toggleFinishedStatus() {
+    const variables = {
+      tapeId: this.tape.tapeId,
+      finished: !this.tape.tvShow.finished
+    };
+    this.editTvShowGql.mutate(variables)
+      .subscribe(result => {
+        this.tape.tvShow.finished = result.data.editTvShow.finished;
+      });
   }
 }

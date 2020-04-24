@@ -12,21 +12,35 @@
         <fa-icon [icon]="faPlusCircle"></fa-icon>
       </a>
     </li>
+    <li class="list-inline-item">
+      <a href="https://www.imdb.com/title/tt{{imdbUrl}}/" target="_blank">
+        <fa-icon [icon]="faLink"></fa-icon>
+      </a>
+    </li>
   </ul>
-  <ul *ngIf="seasons && seasons.length" class="list-inline">
-    <li *ngFor="let season of seasons" class="list-inline-item">
-      <a *ngIf="!season.viewed; else viewedSeason" (click)="addSeasonUser(season)">
-        S{{season.code}}
-      </a>
-      <ng-template #viewedSeason>
-        S{{season.code}}
-      </ng-template>
-    </li>
-    <li *ngIf="tape.tvShow" class="list-inline-item">
-      <a [routerLink]="['/import-imdb-episode', tape.object.imdbNumber.imdbNumber]">
-        <fa-icon [icon]="faFileImport"></fa-icon>
-      </a>
-    </li>
+  <ul class="list-inline">
+    <ng-container *ngIf="seasons && seasons.length">
+      <li *ngFor="let season of seasons" class="list-inline-item">
+        <a *ngIf="!season.viewed; else viewedSeason" (click)="addSeasonUser(season)">
+          S{{season.code}}
+        </a>
+        <ng-template #viewedSeason>
+          S{{season.code}}
+        </ng-template>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="tape.tvShow">
+      <li class="list-inline-item">
+        <a [routerLink]="['/import-imdb-episode', tape.object.imdbNumber.imdbNumber]">
+          <fa-icon [icon]="faFileImport"></fa-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a (click)="toggleFinishedStatus()">
+          <fa-icon [icon]="faHourglassEnd"></fa-icon>
+        </a>
+      </li>
+    </ng-container>
   </ul>
 </ng-container>
 <ng-template #loading>

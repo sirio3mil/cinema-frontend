@@ -21,6 +21,7 @@ export * from './listTapeUserStatus';
 export * from './listTapeUserStatusResponse';
 export * from './editSeasonUserResponse';
 export * from './editTapeUserResponse';
+export * from './editTvShowResponse';
 export * from './tapeUserScore';
 export * from './importImdbEpisodeResponse';
 export * from './country';
