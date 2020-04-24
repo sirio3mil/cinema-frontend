@@ -55,6 +55,7 @@ export class TapeGql extends Query<TapeResponse> {
           history{
             tapeUserHistoryId
             details{
+              tapeUserHistoryDetailId,
               visible
               exported
               place{

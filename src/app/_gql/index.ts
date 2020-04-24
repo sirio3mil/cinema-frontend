@@ -5,6 +5,7 @@ export * from './list-tape-user.gql';
 export * from './list-tape-user-status.gql';
 export * from './edit-season-user.gql';
 export * from './edit-tape-user.gql';
+export * from './edit-tape-user-history-detail.gql';
 export * from './edit-tv-show.gql';
 export * from './import-imdb-episode.gql';
 export * from './tape.gql';

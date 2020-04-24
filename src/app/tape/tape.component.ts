@@ -3,10 +3,18 @@ import {AlertService} from '../_services';
 import {map, switchMap} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {EditTvShowGql, TapeGql} from '../_gql';
+import {EditTapeUserHistoryDetailGql, EditTvShowGql, TapeGql} from '../_gql';
 import {Tape, TvShowChapterSummary} from '../_models';
 import {angularMath} from 'angular-ts-math';
-import {faCheckCircle, faFileImport, faPlusCircle, faClipboardList, faHourglassEnd, faLink} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheckCircle,
+  faFileImport,
+  faPlusCircle,
+  faClipboardList,
+  faHourglassEnd,
+  faLink,
+  faCloudSun
+} from '@fortawesome/free-solid-svg-icons';
 import {EditSeasonUserComponent} from '../edit-season-user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from '../edit-tape-user';
@@ -26,6 +34,7 @@ export class TapeComponent implements OnInit {
   faClipboardList = faClipboardList;
   faHourglassEnd = faHourglassEnd;
   faLink = faLink;
+  faCloudSun = faCloudSun;
 
   view = 2;
   whichList = 3;
@@ -43,6 +52,7 @@ export class TapeComponent implements OnInit {
     private alertService: AlertService,
     private tapeGql: TapeGql,
     private editTvShowGql: EditTvShowGql,
+    private editTapeUserHistoryDetailGql: EditTapeUserHistoryDetailGql,
     private ngbModal: NgbModal
   ) {
   }
@@ -138,5 +148,23 @@ export class TapeComponent implements OnInit {
       .subscribe(result => {
         this.tape.tvShow.finished = result.data.editTvShow.finished;
       });
+  }
+
+  toggleVisibility() {
+    for (const history of this.tape.tapeUser.history) {
+      const tapeUserStatusId = +history.tapeUserStatus.tapeUserStatusId;
+      if (tapeUserStatusId === this.view){
+        for (let detail of history.details){
+          const variables = {
+            tapeUserHistoryDetailId: detail.tapeUserHistoryDetailId,
+            visible: !detail.visible
+          };
+          this.editTapeUserHistoryDetailGql.mutate(variables)
+            .subscribe(result => {
+              detail = result.data.editTapeUserHistoryDetail;
+            });
+        }
+      }
+    }
   }
 }

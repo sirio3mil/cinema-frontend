@@ -2,18 +2,23 @@
   <h1>{{tape.originalTitle}}</h1>
   <ul class="list-inline">
     <li *ngIf="viewed" class="list-inline-item">
-      <fa-icon [icon]="faCheckCircle"></fa-icon>
+      <fa-icon [icon]="faCheckCircle" title="viewed"></fa-icon>
     </li>
     <li *ngIf="whichListed" class="list-inline-item">
-      <fa-icon [icon]="faClipboardList"></fa-icon>
+      <fa-icon [icon]="faClipboardList" title="save in which list"></fa-icon>
     </li>
     <li class="list-inline-item">
-      <a (click)="addTapeUser()">
+      <a (click)="addTapeUser()" title="edit tape user relations">
         <fa-icon [icon]="faPlusCircle"></fa-icon>
       </a>
     </li>
+    <li *ngIf="viewed" class="list-inline-item">
+      <a (click)="toggleVisibility()" title="toggle visibility">
+        <fa-icon [icon]="faCloudSun"></fa-icon>
+      </a>
+    </li>
     <li class="list-inline-item">
-      <a href="https://www.imdb.com/title/tt{{imdbUrl}}/" target="_blank">
+      <a href="https://www.imdb.com/title/tt{{imdbUrl}}/" target="_blank" title="go to Imdb">
         <fa-icon [icon]="faLink"></fa-icon>
       </a>
     </li>
@@ -21,7 +26,7 @@
   <ul class="list-inline">
     <ng-container *ngIf="seasons && seasons.length">
       <li *ngFor="let season of seasons" class="list-inline-item">
-        <a *ngIf="!season.viewed; else viewedSeason" (click)="addSeasonUser(season)">
+        <a *ngIf="!season.viewed; else viewedSeason" (click)="addSeasonUser(season)" title="add season user">
           S{{season.code}}
         </a>
         <ng-template #viewedSeason>
@@ -31,12 +36,12 @@
     </ng-container>
     <ng-container *ngIf="tape.tvShow">
       <li class="list-inline-item">
-        <a [routerLink]="['/import-imdb-episode', tape.object.imdbNumber.imdbNumber]">
+        <a [routerLink]="['/import-imdb-episode', tape.object.imdbNumber.imdbNumber]" title="import episodes">
           <fa-icon [icon]="faFileImport"></fa-icon>
         </a>
       </li>
       <li class="list-inline-item">
-        <a (click)="toggleFinishedStatus()">
+        <a (click)="toggleFinishedStatus()" title="toggle Tv Show finish status">
           <fa-icon [icon]="faHourglassEnd"></fa-icon>
         </a>
       </li>
