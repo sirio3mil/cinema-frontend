@@ -1,5 +1,18 @@
-<ng-container *ngIf="tape; else loading" >
+<ng-container *ngIf="tape; else loading">
   <h1>{{tape.originalTitle}}</h1>
+  <ul class="list-inline">
+    <li *ngIf="viewed" class="list-inline-item">
+      <fa-icon [icon]="faCheckCircle"></fa-icon>
+    </li>
+    <li *ngIf="whichListed" class="list-inline-item">
+      <fa-icon [icon]="faClipboardList"></fa-icon>
+    </li>
+    <li class="list-inline-item">
+      <a (click)="addTapeUser()">
+        <fa-icon [icon]="faPlusCircle"></fa-icon>
+      </a>
+    </li>
+  </ul>
   <ul *ngIf="seasons && seasons.length" class="list-inline">
     <li *ngFor="let season of seasons" class="list-inline-item">
       <a *ngIf="!season.viewed; else viewedSeason" (click)="addSeasonUser(season)">

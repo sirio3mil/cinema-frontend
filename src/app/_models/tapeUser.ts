@@ -5,7 +5,7 @@ import {TapeUserScore} from './tapeUserScore';
 
 export interface TapeUser {
   tapeUserId: number;
-  history: TapeUserHistory;
+  history: TapeUserHistory[];
   tape: Tape;
   user: User;
   createdAt: Date;
