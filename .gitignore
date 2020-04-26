@@ -46,3 +46,4 @@ testem.log
 Thumbs.db
 /.graphqlconfig
 /config/nginx/cert/
+/logs/nginx/
