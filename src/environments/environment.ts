@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  APIEndpoint: 'http://cinema.lcl'
+  APIEndpoint: 'https://cinema.lcl'
 };
 
 /*

@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "http://cinema.lcl",
+        "url": "https://cinema.lcl",
         "headers": {
           "user-agent": "JS GraphQL",
           "authorization": "Bearer *token*"
