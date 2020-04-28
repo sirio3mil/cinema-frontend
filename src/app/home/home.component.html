@@ -1,4 +1,4 @@
-﻿<h1>Hi!</h1>
+﻿<h1>Hi {{currentUser.oauthUser.firstName}}!</h1>
 <p>You're logged in with Angular 9!!</p>
 <ng-container *ngIf="tapesUser$ | async as tapeUsers; else loading">
   <ul>
