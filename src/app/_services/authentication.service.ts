@@ -1,42 +1,31 @@
-﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+﻿import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {LoginResponse, User} from '../_models';
+import {ApolloQueryResult} from 'apollo-client';
 
-import { User } from '../_models';
-
-const APIEndpoint = environment.APIEndpoint;
-
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+  public currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
 
-    constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
-    }
+  constructor() {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
-    public get currentUserValue(): User {
-        return this.currentUserSubject.value;
-    }
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
-    login(username, password) {
-        return this.http.post<any>(`${APIEndpoint}/oauth`, { username, password })
-            .pipe(map(user => {
-                const owner = new User();
-                owner.token = user.access_token;
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(owner));
-                this.currentUserSubject.next(owner);
-                return owner;
-            }));
-    }
+  saveLogin(result: ApolloQueryResult<LoginResponse>) {
+    localStorage.setItem('currentUser', JSON.stringify(result.data.login));
+    this.currentUserSubject.next(result.data.login);
+  }
 
-    logout() {
-        // remove user from local storage and set current user to null
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
-    }
+  logout() {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+  }
 }
