@@ -94,6 +94,13 @@ type Location {
   place: String!
 }
 
+"Class OauthUser"
+type OauthUser {
+  firstName: String
+  lastName: String
+  user: User!
+}
+
 "Class People"
 type People {
   alias(alias: String!): PeopleAlias!
@@ -403,21 +410,30 @@ type TvShowChapter {
 
 "Class TvShowChapterSummary"
 type TvShowChapterSummary {
-  importedChapter: TvShowChapter!
+  importedChapter: TvShowChapter
   tvShow: TvShow!
   user: User!
-  viewedChapter: TvShowChapter!
+  viewedChapter: TvShowChapter
 }
 
 "Class User"
 type User {
   createdAt: DateTime!
-  email: String!
-  name: String!
-  password: String!
-  rememberToken: String!
+  oauthUser: OauthUser!
+  token: String
   updatedAt: DateTime!
   userId: ID!
+  username: String!
+  wishList: [WishList!]!
+}
+
+"Class WishList"
+type WishList {
+  tape: Tape!
+  tapeUser: TapeUser!
+  tapeUserHistory: TapeUserHistory!
+  tapeUserStatus: TapeUserStatus!
+  user: User!
 }
 
 type Mutation {
@@ -435,6 +451,7 @@ type Query {
   listTapeUser(finished: Boolean, isTvShow: Boolean, page: Int!, pageSize: Int!, placeId: PlaceID, tapeUserStatusId: TapeUserStatusID, userId: UserID!, visible: Boolean): TapeUserPage!
   listTapeUserStatus(page: Int!, pageSize: Int!): TapeUserStatusPage!
   listTvShowChapterUser(page: Int!, pageSize: Int!, tapeUserStatusId: TapeUserStatusID!, tvShowId: TvShowID!, userId: UserID!): TapeUserPage!
+  login(password: String!, username: String!): User!
   search(pattern: String!, rowType: Int): [SearchValue]!
   tape(tapeId: TapeID): Tape!
 }
@@ -459,11 +476,11 @@ input TvShowPartialInput {
 
 scalar DateTime
 
-"Automatically generated type to be used as input where an object of type `User` is needed"
-scalar UserID
-
 "Automatically generated type to be used as input where an object of type `TapeUserStatus` is needed"
 scalar TapeUserStatusID
+
+"Automatically generated type to be used as input where an object of type `User` is needed"
+scalar UserID
 
 "Automatically generated type to be used as input where an object of type `People` is needed"
 scalar PeopleID
