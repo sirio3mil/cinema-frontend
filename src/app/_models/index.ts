@@ -30,3 +30,6 @@ export * from './language';
 export * from './genre';
 export * from './tapeResponse';
 export * from './tvShowChapterSummary';
+export * from './loginResponse';
+export * from './wishList';
+export * from './oauthUser';

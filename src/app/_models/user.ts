@@ -1,8 +1,12 @@
-﻿export class User {
+﻿import {OauthUser} from './oauthUser';
+import {WishList} from './wishList';
+
+export interface User {
   userId: number;
-  email: string;
-  name: string;
   token: string;
   createdAt: Date;
   updatedAt: Date;
+  oauthUser: OauthUser;
+  username: string;
+  wishList: WishList[];
 }
