@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertService} from '../_services';
+import {AlertService, AuthenticationService} from '../_services';
 import {map, switchMap} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {EditTapeUserHistoryDetailGql, EditTvShowGql, TapeGql} from '../_gql';
-import {Tape, TvShowChapterSummary} from '../_models';
+import {Tape, TvShowChapterSummary, User} from '../_models';
 import {angularMath} from 'angular-ts-math';
 import {
   faCheckCircle,
@@ -46,6 +46,7 @@ export class TapeComponent implements OnInit {
   public tapeSubscription: Subscription;
   public seasons: SeasonDetail[];
   public summary: TvShowChapterSummary;
+  public currentUser: User;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,8 +54,10 @@ export class TapeComponent implements OnInit {
     private tapeGql: TapeGql,
     private editTvShowGql: EditTvShowGql,
     private editTapeUserHistoryDetailGql: EditTapeUserHistoryDetailGql,
-    private ngbModal: NgbModal
+    private ngbModal: NgbModal,
+    private authenticationService: AuthenticationService
   ) {
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
@@ -64,7 +67,7 @@ export class TapeComponent implements OnInit {
           return this.tapeGql.watch(
             {
               tapeId: params.get('tapeId'),
-              userId: 1
+              userId: this.currentUser.userId
             })
             .valueChanges
             .pipe(map(result => result.data.tape));
@@ -82,7 +85,6 @@ export class TapeComponent implements OnInit {
     modalRef.componentInstance.title = this.tape.originalTitle;
     modalRef.componentInstance.tvShowId = this.tape.tapeId;
     modalRef.componentInstance.seasonNumber = season.number;
-    modalRef.componentInstance.userId = 1;
     modalRef.result
       .then(() => {
         season.viewed = true;
@@ -93,7 +95,6 @@ export class TapeComponent implements OnInit {
     const modalRef = this.ngbModal.open(EditTapeUserComponent);
     modalRef.componentInstance.title = this.tape.originalTitle;
     modalRef.componentInstance.tapeId = this.tape.tapeId;
-    modalRef.componentInstance.userId = 1;
     modalRef.result
       .then(result => {
         this.tape.tapeUser = result;

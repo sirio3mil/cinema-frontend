@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     const variables = {
-      userId: 1,
+      userId: this.currentUser.userId,
       tapeUserStatusId: 2,
       isTvShow: true,
       visible: true,

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../_services';
+import {AlertService, AuthenticationService} from '../_services';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {SearchValue} from '../_models';
+import {SearchValue, User} from '../_models';
 import {SearchGQL} from '../_gql';
 
 @Component({ templateUrl: 'search.component.html' })
@@ -12,12 +12,15 @@ export class SearchComponent implements OnInit {
   searching = false;
   submitted = false;
   searchValues$: Observable<SearchValue[]>;
+  public currentUser: User;
 
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private searchService: SearchGQL
+    private searchService: SearchGQL,
+    private authenticationService: AuthenticationService
   ) {
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
@@ -41,7 +44,7 @@ export class SearchComponent implements OnInit {
     const variables = {
       pattern: this.f.pattern.value,
       rowType: 4,
-      userId: 1
+      userId: this.currentUser.userId
     };
     this.searchValues$ = this.searchService.watch(variables)
       .valueChanges

@@ -1,16 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../_services';
+import {AlertService, AuthenticationService} from '../_services';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditSeasonUserGql, ListPlaceGQL, ListTapeUserStatusGQL} from '../_gql';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Place, TapeUser, TapeUserStatus} from '../_models';
+import {Place, TapeUser, TapeUserStatus, User} from '../_models';
 
 @Component({ templateUrl: 'edit-season-user.component.html' })
 export class EditSeasonUserComponent implements OnInit {
   @Input() tvShowId: number;
-  @Input() userId: number;
   @Input() title: string;
   @Input() seasonNumber: number;
   editForm: FormGroup;
@@ -19,6 +18,7 @@ export class EditSeasonUserComponent implements OnInit {
   places$: Observable<Place[]>;
   tapeUserStatuses$: Observable<TapeUserStatus[]>;
   tapesUser: TapeUser[];
+  public currentUser: User;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,8 +26,10 @@ export class EditSeasonUserComponent implements OnInit {
     private listPlaceGQL: ListPlaceGQL,
     private listTapeUserStatusGQL: ListTapeUserStatusGQL,
     private editSeasonUserGql: EditSeasonUserGql,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private authenticationService: AuthenticationService
   ) {
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
@@ -61,7 +63,7 @@ export class EditSeasonUserComponent implements OnInit {
     this.loading = true;
     const variables = {
       tvShowId: this.tvShowId,
-      userId: this.userId,
+      userId: this.currentUser.userId,
       tapeUserStatusId: this.f.tapeUserStatus.value.tapeUserStatusId,
       placeId: this.f.place.value.placeId,
       season: this.seasonNumber

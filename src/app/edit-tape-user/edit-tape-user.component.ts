@@ -1,16 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../_services';
+import {AlertService, AuthenticationService} from '../_services';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserGql, ListPlaceGQL, ListTapeUserStatusGQL} from '../_gql';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Place, TapeUser, TapeUserStatus} from '../_models';
+import {Place, TapeUser, TapeUserStatus, User} from '../_models';
 
 @Component({ templateUrl: 'edit-tape-user.component.html' })
 export class EditTapeUserComponent implements OnInit {
   @Input() tapeId: number;
-  @Input() userId: number;
   @Input() title: string;
   editForm: FormGroup;
   loading = false;
@@ -18,6 +17,7 @@ export class EditTapeUserComponent implements OnInit {
   places$: Observable<Place[]>;
   tapeUserStatuses$: Observable<TapeUserStatus[]>;
   tapeUser: TapeUser;
+  public currentUser: User;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,8 +25,10 @@ export class EditTapeUserComponent implements OnInit {
     private listPlaceService: ListPlaceGQL,
     private listTapeUserStatusService: ListTapeUserStatusGQL,
     private editTapeUserService: EditTapeUserGql,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private authenticationService: AuthenticationService
   ) {
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
@@ -60,7 +62,7 @@ export class EditTapeUserComponent implements OnInit {
     this.loading = true;
     const variables = {
       tapeId: this.tapeId,
-      userId: this.userId,
+      userId: this.currentUser.userId,
       tapeUserStatusId: this.f.tapeUserStatus.value.tapeUserStatusId,
       placeId: this.f.place.value.placeId
     };
