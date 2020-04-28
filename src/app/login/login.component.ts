@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {map} from 'rxjs/operators';
 import {AlertService, AuthenticationService} from '../_services';
 import {LoginGql} from '../_gql';
-import {User} from '../_models';
 
 @Component({templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit {
@@ -31,27 +30,19 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
-  // convenience getter for easy access to form fields
   get f() {
     return this.loginForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
-
-    // reset alerts on submit
     this.alertService.clear();
-
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
-
     this.loading = true;
     const variables = {
       username: this.f.username.value,
@@ -64,7 +55,7 @@ export class LoginComponent implements OnInit {
         return result.data.login;
       }))
       .subscribe(
-        (user: User) => {
+        () => {
           this.router.navigate([this.returnUrl]);
         },
         error => {
