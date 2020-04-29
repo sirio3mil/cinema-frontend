@@ -10,3 +10,4 @@ export * from './edit-tv-show.gql';
 export * from './import-imdb-episode.gql';
 export * from './tape.gql';
 export * from './login.gql';
+export * from './delete-tape-user-history.gql';

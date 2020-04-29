@@ -2,9 +2,12 @@
 <p>You're logged in with Angular 9!!</p>
 <ng-container *ngIf="currentUser.wishList">
   <ul>
-    <li *ngFor="let wishList of currentUser.wishList">
+    <li *ngFor="let wishList of currentUser.wishList; let i = index">
       <a [routerLink]="['/tape', wishList.tape.tapeId]">
         {{wishList.tape.originalTitle}}
+      </a>
+      <a (click)="deleteFromWishList(wishList.tapeUserHistory.tapeUserHistoryId, i)">
+        <fa-icon [icon]="faTrash"></fa-icon>
       </a>
     </li>
   </ul>

@@ -28,6 +28,9 @@ export class LoginGql extends Query<LoginResponse> {
             tapeId
             originalTitle
           }
+          tapeUserHistory{
+            tapeUserHistoryId
+          }
         }
       }
     }

@@ -33,3 +33,4 @@ export * from './tvShowChapterSummary';
 export * from './loginResponse';
 export * from './wishList';
 export * from './oauthUser';
+export * from './deleteTapeUserHistoryResponse';
