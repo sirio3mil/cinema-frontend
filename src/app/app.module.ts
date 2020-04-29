@@ -18,6 +18,7 @@ import {EditTapeUserComponent} from './edit-tape-user';
 import {ImportImdbEpisodeComponent} from './import-imdb-episode';
 import {TapeComponent} from './tape';
 import {EditSeasonUserComponent} from './edit-season-user';
+import {TvShowComponent} from './tv-show';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {EditSeasonUserComponent} from './edit-season-user';
     ImportImdbEpisodeComponent,
     EditSeasonUserComponent,
     EditTapeUserComponent,
-    TapeComponent
+    TapeComponent,
+    TvShowComponent
   ],
   imports: [
     BrowserModule,

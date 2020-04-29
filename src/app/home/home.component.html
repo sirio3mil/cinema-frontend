@@ -1,10 +1,10 @@
 ﻿<h1>Hi {{currentUser.oauthUser.firstName}}!</h1>
 <p>You're logged in with Angular 9!!</p>
-<ng-container *ngIf="tapesUser$ | async as tapeUsers; else loading">
+<ng-container *ngIf="currentUser.wishList">
   <ul>
-    <li *ngFor="let tapeUser of tapeUsers">
-      <a [routerLink]="['/tape', tapeUser.tape.tapeId]">
-        {{tapeUser.tape.originalTitle}}
+    <li *ngFor="let wishList of currentUser.wishList">
+      <a [routerLink]="['/tape', wishList.tape.tapeId]">
+        {{wishList.tape.originalTitle}}
       </a>
     </li>
   </ul>

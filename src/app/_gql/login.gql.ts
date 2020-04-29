@@ -26,6 +26,7 @@ export class LoginGql extends Query<LoginResponse> {
         wishList{
           tape{
             tapeId
+            originalTitle
           }
         }
       }

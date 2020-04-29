@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from './_services';
 import {User} from './_models';
-import {faHome, faSearch, faSignOutAlt, faFileImport, faCopyright} from '@fortawesome/free-solid-svg-icons';
+import {faHome, faSearch, faSignOutAlt, faFileImport, faCopyright, faVideo} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,7 @@ export class AppComponent {
   faSignOutAlt = faSignOutAlt;
   faFileImport = faFileImport;
   faCopyright = faCopyright;
+  faVideo = faVideo;
 
   currentUser: User;
 
