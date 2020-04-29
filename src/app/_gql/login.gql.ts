@@ -27,6 +27,11 @@ export class LoginGql extends Query<LoginResponse> {
           tape{
             tapeId
             originalTitle
+            object{
+              imdbNumber{
+                url
+              }
+            }
           }
           tapeUserHistory{
             tapeUserHistoryId

@@ -29,6 +29,7 @@ export class TapeGql extends Query<TapeResponse> {
         object{
           imdbNumber{
             imdbNumber
+            url
           }
         }
         countries{

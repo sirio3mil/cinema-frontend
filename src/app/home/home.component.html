@@ -6,8 +6,11 @@
       <a [routerLink]="['/tape', wishList.tape.tapeId]">
         {{wishList.tape.originalTitle}}
       </a>
-      <a (click)="deleteFromWishList(wishList.tapeUserHistory.tapeUserHistoryId, i)">
+      <a (click)="deleteFromWishList(wishList.tapeUserHistory.tapeUserHistoryId, i)" class="ml-2">
         <fa-icon [icon]="faTrash"></fa-icon>
+      </a>
+      <a href="{{wishList.tape.object.imdbNumber.url}}" target="_blank" title="go to Imdb" class="ml-2">
+        <fa-icon [icon]="faLink"></fa-icon>
       </a>
     </li>
   </ul>

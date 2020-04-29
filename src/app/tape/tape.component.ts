@@ -41,7 +41,6 @@ export class TapeComponent implements OnInit {
   viewed = false;
   whichListed = false;
 
-  public imdbUrl: string;
   public tape: Tape;
   public tapeSubscription: Subscription;
   public seasons: SeasonDetail[];
@@ -74,7 +73,6 @@ export class TapeComponent implements OnInit {
         })
       ).subscribe((tape: Tape) => {
         this.tape = tape;
-        this.imdbUrl = ('' + tape.object.imdbNumber.imdbNumber).padStart(7, '0');
         this.setTapeUserStatus();
         this.setSeasonDetails();
       });

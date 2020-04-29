@@ -1,7 +1,7 @@
 ﻿import {Component, OnInit} from '@angular/core';
 import {User} from '../_models';
 import {AuthenticationService} from '../_services';
-import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faTrash, faLink} from '@fortawesome/free-solid-svg-icons';
 import {DeleteTapeUserHistoryGql} from '../_gql';
 
 @Component({templateUrl: 'home.component.html'})
@@ -9,6 +9,7 @@ export class HomeComponent implements OnInit {
   currentUser: User;
 
   faTrash = faTrash;
+  faLink = faLink;
 
   constructor(
     private authenticationService: AuthenticationService,
