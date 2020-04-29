@@ -344,10 +344,13 @@ type TapeUser {
 "Class TapeUserHistory"
 type TapeUserHistory {
   createdAt: DateTime!
+  deletedAt: DateTime
   details: [TapeUserHistoryDetail!]!
+  isDeleted: Boolean!
   tapeUser: TapeUser!
   tapeUserHistoryId: ID!
   tapeUserStatus: TapeUserStatus
+  updatedAt: DateTime!
 }
 
 "Class TapeUserHistoryDetail"
@@ -438,6 +441,7 @@ type WishList {
 
 type Mutation {
   createFile(file: Upload!, globalUniqueObjectId: GlobalUniqueObjectID!): File!
+  deleteTapeUserHistory(tapeUserHistoryId: TapeUserHistoryID!): TapeUser!
   editSeasonUser(placeId: PlaceID, season: Int!, tapeUserStatusId: TapeUserStatusID!, tvShowId: TvShowID!, userId: UserID!): [TapeUser]!
   editTapeUser(placeId: PlaceID, tapeId: TapeID!, tapeUserStatusId: TapeUserStatusID!, userId: UserID!): TapeUser!
   editTapeUserHistoryDetail(input: TapeUserHistoryDetailPartialInput!, tapeUserHistoryDetailId: TapeUserHistoryDetailID!): TapeUserHistoryDetail!
@@ -514,3 +518,6 @@ The `Upload` special type represents a file to be uploaded in the same HTTP requ
 [graphql-multipart-request-spec](https://github.com/jaydenseric/graphql-multipart-request-spec).
 """
 scalar Upload
+
+"Automatically generated type to be used as input where an object of type `TapeUserHistory` is needed"
+scalar TapeUserHistoryID
