@@ -21,6 +21,7 @@ export class LastSeenTapesComponent implements OnInit {
     const variables = {
       userId: this.currentUser.userId,
       tapeUserStatusId: 2,
+      isTvShow: false,
       page: 1,
       pageSize: 50
     };
