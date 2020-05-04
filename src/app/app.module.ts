@@ -19,6 +19,7 @@ import {ImportImdbEpisodeComponent} from './import-imdb-episode';
 import {TapeComponent} from './tape';
 import {EditSeasonUserComponent} from './edit-season-user';
 import {TvShowComponent} from './tv-show';
+import {LastSeenTapesComponent} from './last-seen-tapes';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {TvShowComponent} from './tv-show';
     EditSeasonUserComponent,
     EditTapeUserComponent,
     TapeComponent,
-    TvShowComponent
+    TvShowComponent,
+    LastSeenTapesComponent
   ],
   imports: [
     BrowserModule,

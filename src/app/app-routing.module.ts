@@ -10,11 +10,13 @@ import {ImportImdbMovieComponent} from './import-imdb-movie';
 import {ImportImdbEpisodeComponent} from './import-imdb-episode';
 import {TapeComponent} from './tape';
 import {TvShowComponent} from './tv-show';
+import {LastSeenTapesComponent} from './last-seen-tapes';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
   { path: 'import-imdb-movie', component: ImportImdbMovieComponent, canActivate: [AuthGuard] },
+  { path: 'last-seen-tapes', component: LastSeenTapesComponent, canActivate: [AuthGuard] },
   { path: 'tv-show', component: TvShowComponent, canActivate: [AuthGuard] },
   { path: 'import-imdb-episode/:imdbNumber', component: ImportImdbEpisodeComponent, canActivate: [AuthGuard] },
   { path: 'tape/:tapeId', component: TapeComponent, canActivate: [AuthGuard] },

@@ -1,0 +1,16 @@
+<ng-container *ngIf="tapesUser$ | async as tapeUsers; else loading">
+  <ul>
+    <li *ngFor="let tapeUser of tapeUsers">
+      <a [routerLink]="['/tape', tapeUser.tape.tapeId]">
+        {{tapeUser.tape.originalTitle}}
+      </a>
+    </li>
+  </ul>
+</ng-container>
+<ng-template #loading>
+  <div class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>

@@ -11,9 +11,9 @@ export class ListTapeUserGql extends Query<ListTapeUserResponse> {
     query listTapeUser(
       $userId: UserID!,
       $tapeUserStatusId: TapeUserStatusID!
-      $isTvShow: Boolean!,
-      $visible: Boolean!,
-      $finished: Boolean!,
+      $isTvShow: Boolean,
+      $visible: Boolean,
+      $finished: Boolean,
       $page: Int!,
       $pageSize: Int!
     ){
