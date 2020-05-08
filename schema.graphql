@@ -454,7 +454,7 @@ type Query {
   listPlace(page: Int!, pageSize: Int!): PlacePage!
   listTapeUser(finished: Boolean, isTvShow: Boolean, page: Int!, pageSize: Int!, placeId: PlaceID, tapeUserStatusId: TapeUserStatusID, userId: UserID!, visible: Boolean): TapeUserPage!
   listTapeUserStatus(page: Int!, pageSize: Int!): TapeUserStatusPage!
-  listTvShowChapterUser(page: Int!, pageSize: Int!, tapeUserStatusId: TapeUserStatusID!, tvShowId: TvShowID!, userId: UserID!): TapeUserPage!
+  listTvShowChapter(season: Int!, tvShowId: TvShowID!): [TvShowChapter]!
   login(password: String!, username: String!): User!
   search(pattern: String!, rowType: Int): [SearchValue]!
   tape(tapeId: TapeID): Tape!

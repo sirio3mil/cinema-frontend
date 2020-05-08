@@ -19,6 +19,7 @@ export * from './listTapeUser';
 export * from './listTapeUserResponse';
 export * from './listTapeUserStatus';
 export * from './listTapeUserStatusResponse';
+export * from './listTvShowChapterResponse';
 export * from './editSeasonUserResponse';
 export * from './editTapeUserHistoryDetailResponse';
 export * from './editTapeUserResponse';
