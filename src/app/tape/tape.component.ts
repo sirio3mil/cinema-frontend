@@ -15,7 +15,6 @@ import {
   faLink,
   faCloudSun
 } from '@fortawesome/free-solid-svg-icons';
-import {EditSeasonUserComponent} from '../edit-season-user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from '../edit-tape-user';
 
@@ -75,17 +74,6 @@ export class TapeComponent implements OnInit {
         this.tape = tape;
         this.setTapeUserStatus();
         this.setSeasonDetails();
-      });
-  }
-
-  addSeasonUser(season: SeasonDetail) {
-    const modalRef = this.ngbModal.open(EditSeasonUserComponent);
-    modalRef.componentInstance.title = this.tape.originalTitle;
-    modalRef.componentInstance.tvShowId = this.tape.tapeId;
-    modalRef.componentInstance.seasonNumber = season.number;
-    modalRef.result
-      .then(() => {
-        season.viewed = true;
       });
   }
 

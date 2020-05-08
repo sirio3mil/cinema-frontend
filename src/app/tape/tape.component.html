@@ -26,12 +26,9 @@
   <ul class="list-inline">
     <ng-container *ngIf="seasons && seasons.length">
       <li *ngFor="let season of seasons" class="list-inline-item">
-        <a *ngIf="!season.viewed; else viewedSeason" (click)="addSeasonUser(season)" title="add season user">
+        <a [routerLink]="['/tv-show-chapter', tape.tapeId, season.number]" title="see season chapters">
           S{{season.code}}
         </a>
-        <ng-template #viewedSeason>
-          S{{season.code}}
-        </ng-template>
       </li>
     </ng-container>
     <ng-container *ngIf="tape.tvShow">

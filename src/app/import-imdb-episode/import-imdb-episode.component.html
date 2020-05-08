@@ -1,7 +1,7 @@
 <form class="form-inline" [formGroup]="importForm" (ngSubmit)="onSubmit()">
   <div class="form-group mx-sm-3 mb-2">
     <label>
-      <input type="text" formControlName="seasonNumber" class="form-control"
+      <input type="text" formControlName="seasonNumber" class="form-control" placeholder="season number"
              [ngClass]="{ 'is-invalid': submitted && f.seasonNumber.errors }"/>
     </label>
     <div *ngIf="submitted && f.seasonNumber.errors" class="invalid-feedback">

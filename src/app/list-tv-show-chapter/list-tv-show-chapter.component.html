@@ -1,0 +1,26 @@
+<ng-container *ngIf="tvShowChapters; else loading">
+  <button type="button" class="btn btn-success mb-3" (click)="addSeasonUser()">Add full season</button>
+  <h2>Chapter list</h2>
+  <a [routerLink]="['/tape', tvShowId]" class="ml-2" title="go back to tv show page">
+    <fa-icon [icon]="faUndo"></fa-icon>
+  </a>
+  <ul class="mt-2">
+    <li *ngFor="let chapter of tvShowChapters">
+      S{{chapter.season.toString().padStart(2, '0')}}E{{chapter.chapter.toString().padStart(2, '0')}}
+      {{chapter.tape.originalTitle}}
+      <a *ngIf="isPending(chapter); else viewed" (click)="addTapeUser(chapter)" class="ml-2">
+        <fa-icon [icon]="faPlusCircle"></fa-icon>
+      </a>
+    </li>
+  </ul>
+</ng-container>
+<ng-template #loading>
+  <div class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>
+<ng-template #viewed>
+  <fa-icon [icon]="faCheckCircle" class="ml-2"></fa-icon>
+</ng-template>

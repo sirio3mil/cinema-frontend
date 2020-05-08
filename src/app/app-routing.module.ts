@@ -11,6 +11,7 @@ import {ImportImdbEpisodeComponent} from './import-imdb-episode';
 import {TapeComponent} from './tape';
 import {TvShowComponent} from './tv-show';
 import {LastSeenTapesComponent} from './last-seen-tapes';
+import {ListTvShowChapterComponent} from './list-tv-show-chapter';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'import-imdb-movie', component: ImportImdbMovieComponent, canActivate: [AuthGuard] },
   { path: 'last-seen-tapes', component: LastSeenTapesComponent, canActivate: [AuthGuard] },
   { path: 'tv-show', component: TvShowComponent, canActivate: [AuthGuard] },
+  { path: 'tv-show-chapter/:tvShowId/:season', component: ListTvShowChapterComponent, canActivate: [AuthGuard] },
   { path: 'import-imdb-episode/:imdbNumber', component: ImportImdbEpisodeComponent, canActivate: [AuthGuard] },
   { path: 'tape/:tapeId', component: TapeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },

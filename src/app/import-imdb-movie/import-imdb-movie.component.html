@@ -1,7 +1,7 @@
 <form class="form-inline" [formGroup]="importForm" (ngSubmit)="onSubmit()">
   <div class="form-group mx-sm-3 mb-2">
     <label>
-      <input type="text" formControlName="imdbNumber" class="form-control"
+      <input type="text" formControlName="imdbNumber" class="form-control" placeholder="imdb number"
              [ngClass]="{ 'is-invalid': submitted && f.imdbNumber.errors }"/>
     </label>
     <div *ngIf="submitted && f.imdbNumber.errors" class="invalid-feedback">
