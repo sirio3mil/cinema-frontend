@@ -44,12 +44,15 @@
       </li>
     </ng-container>
   </ul>
-  <p *ngIf="tape.tvShow.summaryByUser.viewedChapter as chapter">
-    Last viewed chapter S{{chapter.season.toString(10).padStart(2, '0')}}E{{chapter.chapter.toString(10).padStart(2, '0')}}
-  </p>
-  <p *ngIf="tape.tvShow.summaryByUser.importedChapter as chapter">
-    Last chapter S{{chapter.season.toString(10).padStart(2, '0')}}E{{chapter.chapter.toString(10).padStart(2, '0')}}
-  </p>
+  <ng-container *ngIf="tape.tvShow && tape.tvShow.summaryByUser">
+    <p *ngIf="tape.tvShow.summaryByUser.viewedChapter as chapter">
+      Last viewed chapter S{{chapter.season.toString(10).padStart(2, '0')}}
+      E{{chapter.chapter.toString(10).padStart(2, '0')}}
+    </p>
+    <p *ngIf="tape.tvShow.summaryByUser.importedChapter as chapter">
+      Last chapter S{{chapter.season.toString(10).padStart(2, '0')}}E{{chapter.chapter.toString(10).padStart(2, '0')}}
+    </p>
+  </ng-container>
 </ng-container>
 <ng-template #loading>
   <div class="text-center">
