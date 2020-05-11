@@ -1,21 +1,25 @@
-<form class="form-inline" [formGroup]="importForm" (ngSubmit)="onSubmit()">
-  <div class="form-group mx-sm-3 mb-2">
-    <label>
-      <input type="text" formControlName="seasonNumber" class="form-control" placeholder="season number"
-             [ngClass]="{ 'is-invalid': submitted && f.seasonNumber.errors }"/>
-    </label>
-    <div *ngIf="submitted && f.seasonNumber.errors" class="invalid-feedback">
-      <div *ngIf="f.seasonNumber.errors.required">Season number is required</div>
-    </div>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+    <form class="form-inline" [formGroup]="importForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mx-sm-3 mb-2">
+        <label>
+          <input type="text" formControlName="seasonNumber" class="form-control" placeholder="season number"
+                 [ngClass]="{ 'is-invalid': submitted && f.seasonNumber.errors }"/>
+        </label>
+        <div *ngIf="submitted && f.seasonNumber.errors" class="invalid-feedback">
+          <div *ngIf="f.seasonNumber.errors.required">Season number is required</div>
+        </div>
+      </div>
+      <button [disabled]="importing" class="btn btn-primary mb-2">
+        <span *ngIf="importing" class="spinner-border spinner-border-sm mr-1"></span>
+        Import
+      </button>
+    </form>
+    <ng-container *ngIf="tvShowChapters">
+      <div *ngFor="let tvShowChapter of tvShowChapters">
+        <h2>S{{tvShowChapter.season}}E{{tvShowChapter.chapter}}</h2>
+        <h3>{{tvShowChapter.tape.originalTitle}}</h3>
+      </div>
+    </ng-container>
   </div>
-  <button [disabled]="importing" class="btn btn-primary mb-2">
-    <span *ngIf="importing" class="spinner-border spinner-border-sm mr-1"></span>
-    Import
-  </button>
-</form>
-<ng-container *ngIf="tvShowChapters">
-  <div *ngFor="let tvShowChapter of tvShowChapters">
-    <h2>S{{tvShowChapter.season}}E{{tvShowChapter.chapter}}</h2>
-    <h3>{{tvShowChapter.tape.originalTitle}}</h3>
-  </div>
-</ng-container>
+</div>

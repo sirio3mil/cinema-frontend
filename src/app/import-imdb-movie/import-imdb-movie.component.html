@@ -1,28 +1,34 @@
-<form class="form-inline" [formGroup]="importForm" (ngSubmit)="onSubmit()">
-  <div class="form-group mx-sm-3 mb-2">
-    <label>
-      <input type="text" formControlName="imdbNumber" class="form-control" placeholder="imdb number"
-             [ngClass]="{ 'is-invalid': submitted && f.imdbNumber.errors }"/>
-    </label>
-    <div *ngIf="submitted && f.imdbNumber.errors" class="invalid-feedback">
-      <div *ngIf="f.imdbNumber.errors.required">ImdbNumber is required</div>
-    </div>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+    <form class="form-inline" [formGroup]="importForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mx-sm-3 mb-2">
+        <label>
+          <input type="text" formControlName="imdbNumber" class="form-control" placeholder="imdb number"
+                 [ngClass]="{ 'is-invalid': submitted && f.imdbNumber.errors }"/>
+        </label>
+        <div *ngIf="submitted && f.imdbNumber.errors" class="invalid-feedback">
+          <div *ngIf="f.imdbNumber.errors.required">ImdbNumber is required</div>
+        </div>
+      </div>
+      <button [disabled]="importing" class="btn btn-primary mb-2">
+        <span *ngIf="importing" class="spinner-border spinner-border-sm mr-1"></span>
+        Import
+      </button>
+    </form>
+    <ng-container *ngIf="tape">
+      <h2>{{tape.originalTitle}}</h2>
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a (click)="addTapeUser()">
+            <fa-icon [icon]="faPlusCircle"></fa-icon>
+          </a>
+        </li>
+        <li *ngIf="tape.tvShow" class="list-inline-item">
+          <a [routerLink]="['/import-imdb-episode', tape.object.imdbNumber.imdbNumber]">
+            <fa-icon [icon]="faFileImport"></fa-icon>
+          </a>
+        </li>
+      </ul>
+    </ng-container>
   </div>
-  <button [disabled]="importing" class="btn btn-primary mb-2">
-    <span *ngIf="importing" class="spinner-border spinner-border-sm mr-1"></span>
-    Import
-  </button>
-</form>
-<ng-container *ngIf="tape">
-  <h2>{{tape.originalTitle}}</h2>
-  <ul class="list-inline">
-    <li class="list-inline-item">
-      <a (click)="addTapeUser()"><fa-icon [icon]="faPlusCircle"></fa-icon></a>
-    </li>
-    <li *ngIf="tape.tvShow" class="list-inline-item">
-      <a [routerLink]="['/import-imdb-episode', tape.object.imdbNumber.imdbNumber]">
-        <fa-icon [icon]="faFileImport"></fa-icon>
-      </a>
-    </li>
-  </ul>
-</ng-container>
+</div>
