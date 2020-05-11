@@ -17,20 +17,19 @@ type Country {
 "Class File"
 type File {
   createdAt: DateTime!
-  deleted: Boolean!
-  deletionDate: DateTime!
-  downloadName: String
+  deletedAt: DateTime
   extension: String!
   fileId: ID!
   fileType: FileType!
   image: Image!
+  isDeleted: Boolean!
   mime: String!
   name: String!
   object: GlobalUniqueObject!
-  originalName: String
   path: String!
-  season: FileSeason!
+  season: FileSeason
   size: Int!
+  url: String!
 }
 
 "Class FileSeason"
@@ -64,6 +63,7 @@ type GlobalUniqueObject {
   searchValue(slug: String!): SearchValue
   searchValues: [SearchValue!]
   tape: Tape
+  thumbnail: File
 }
 
 "Class Image"
