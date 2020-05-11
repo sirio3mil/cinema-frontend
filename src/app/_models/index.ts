@@ -35,3 +35,7 @@ export * from './loginResponse';
 export * from './wishList';
 export * from './oauthUser';
 export * from './deleteTapeUserHistoryResponse';
+export * from './fileType';
+export * from './file';
+export * from './fileSeason';
+export * from './image';
