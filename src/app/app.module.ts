@@ -21,6 +21,7 @@ import {EditSeasonUserComponent} from './edit-season-user';
 import {TvShowComponent} from './tv-show';
 import {LastSeenTapesComponent} from './last-seen-tapes';
 import {ListTvShowChapterComponent} from './list-tv-show-chapter';
+import {TapeListCardComponent} from './tape-list-card';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {ListTvShowChapterComponent} from './list-tv-show-chapter';
     TapeComponent,
     TvShowComponent,
     LastSeenTapesComponent,
-    ListTvShowChapterComponent
+    ListTvShowChapterComponent,
+    TapeListCardComponent
   ],
   imports: [
     BrowserModule,

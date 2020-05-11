@@ -1,19 +1,9 @@
 ﻿<h1>Hi {{currentUser.oauthUser.firstName}}!</h1>
-<p>You're logged in with Angular 9!!</p>
+<p>This is your wish list!!</p>
 <ng-container *ngIf="currentUser.wishList">
-  <ul>
-    <li *ngFor="let wishList of currentUser.wishList; let i = index">
-      <a [routerLink]="['/tape', wishList.tape.tapeId]">
-        {{wishList.tape.originalTitle}}
-      </a>
-      <a (click)="deleteFromWishList(wishList.tapeUserHistory.tapeUserHistoryId, i)" class="ml-2">
-        <fa-icon [icon]="faTrash"></fa-icon>
-      </a>
-      <a href="{{wishList.tape.object.imdbNumber.url}}" target="_blank" title="go to Imdb" class="ml-2">
-        <fa-icon [icon]="faLink"></fa-icon>
-      </a>
-    </li>
-  </ul>
+  <div class="row row-cols-1 row-cols-md-3">
+    <app-tape-list-card *ngFor="let wishList of currentUser.wishList" [tape]="wishList.tape"></app-tape-list-card>
+  </div>
 </ng-container>
 <ng-template #loading>
   <div class="text-center">

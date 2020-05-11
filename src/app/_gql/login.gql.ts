@@ -31,6 +31,9 @@ export class LoginGql extends Query<LoginResponse> {
               imdbNumber{
                 url
               }
+              thumbnail{
+                url
+              }
             }
           }
           tapeUserHistory{
