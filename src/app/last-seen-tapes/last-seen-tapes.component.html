@@ -1,11 +1,8 @@
+<h1>Last seen tapes</h1>
 <ng-container *ngIf="tapesUser$ | async as tapeUsers; else loading">
-  <ul>
-    <li *ngFor="let tapeUser of tapeUsers">
-      <a [routerLink]="['/tape', tapeUser.tape.tapeId]">
-        {{tapeUser.tape.originalTitle}}
-      </a>
-    </li>
-  </ul>
+  <div class="row row-cols-1 row-cols-md-3">
+    <app-tape-list-card *ngFor="let tapeUser of tapeUsers" [tape]="tapeUser.tape"></app-tape-list-card>
+  </div>
 </ng-container>
 <ng-template #loading>
   <div class="text-center">

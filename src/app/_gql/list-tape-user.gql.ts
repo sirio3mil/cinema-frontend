@@ -43,6 +43,9 @@ export class ListTapeUserGql extends Query<ListTapeUserResponse> {
               imdbNumber{
                 url
               }
+              thumbnail{
+                url
+              }
             }
           }
         }
