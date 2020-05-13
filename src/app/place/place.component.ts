@@ -1,46 +1,46 @@
 import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {TapeUserStatus} from '../_models';
-import {ListTapeUserStatusGQL} from '../_gql';
+import {Place} from '../_models';
+import {ListPlaceGQL} from '../_gql';
 import {ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
 import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 
-export interface TapeUserStatusFormValues {
-  tapeUserStatus: TapeUserStatus;
+export interface PlaceFormValues {
+  place: Place;
 }
 
 @Component({
-  selector: 'app-tape-user-status',
-  templateUrl: 'tape-user-status.component.html',
+  selector: 'app-place',
+  templateUrl: 'place.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TapeUserStatusComponent),
+      useExisting: forwardRef(() => PlaceComponent),
       multi: true
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => TapeUserStatusComponent),
+      useExisting: forwardRef(() => PlaceComponent),
       multi: true
     }
   ]
 })
-export class TapeUserStatusComponent implements OnInit, ControlValueAccessor, OnDestroy {
-  listTapeUserStatus: TapeUserStatus[];
-  statusForm: FormGroup;
+export class PlaceComponent implements OnInit, ControlValueAccessor, OnDestroy {
+  placeForm: FormGroup;
+  places: Place[];
   subscriptions: Subscription[] = [];
 
   @Input() submitted: boolean;
 
   constructor(
-    private listTapeUserStatusService: ListTapeUserStatusGQL,
+    private listPlaceGQL: ListPlaceGQL,
     private formBuilder: FormBuilder
   ) {
-    this.statusForm = this.formBuilder.group({
-      tapeUserStatus: ['', Validators.required]
+    this.placeForm = this.formBuilder.group({
+      place: ['', Validators.required]
     });
     this.subscriptions.push(
-      this.statusForm.valueChanges.subscribe(value => {
+      this.placeForm.valueChanges.subscribe(value => {
         this.onChange(value);
         this.onTouched();
       })
@@ -62,7 +62,7 @@ export class TapeUserStatusComponent implements OnInit, ControlValueAccessor, On
     }
 
     if (obj === null) {
-      this.statusForm.reset();
+      this.placeForm.reset();
     }
   }
 
@@ -83,30 +83,30 @@ export class TapeUserStatusComponent implements OnInit, ControlValueAccessor, On
       page: 1,
       pageSize: 20
     };
-    this.listTapeUserStatusService.watch(variables)
+    this.listPlaceGQL.watch(variables)
       .valueChanges
-      .pipe(map(result => result.data.listTapeUserStatus.elements))
+      .pipe(map(result => result.data.listPlace.elements))
       .subscribe(
-        (listTapeUserStatus: TapeUserStatus[]) => {
-          this.listTapeUserStatus = listTapeUserStatus;
+        (places: Place[]) => {
+          this.places = places;
         });
   }
 
   get f() {
-    return this.statusForm.controls;
+    return this.placeForm.controls;
   }
 
-  get value(): TapeUserStatusFormValues {
-    return this.statusForm.value;
+  get value(): PlaceFormValues {
+    return this.placeForm.value;
   }
 
-  set value(value: TapeUserStatusFormValues) {
-    this.statusForm.setValue(value);
+  set value(value: PlaceFormValues) {
+    this.placeForm.setValue(value);
     this.onChange(value);
     this.onTouched();
   }
 
   validate(_: FormControl) {
-    return this.statusForm.valid ? null : {tapeUserStatus: {valid: false}};
+    return this.placeForm.valid ? null : {place: {valid: false}};
   }
 }

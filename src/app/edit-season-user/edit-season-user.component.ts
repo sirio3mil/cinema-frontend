@@ -1,58 +1,42 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, Input} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {AlertService, AuthenticationService} from '../_services';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {EditSeasonUserGql, ListPlaceGQL, ListTapeUserStatusGQL} from '../_gql';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Place, TapeUser, User} from '../_models';
+import {EditSeasonUserGql} from '../_gql';
+import {TapeUser, User} from '../_models';
 
-@Component({ templateUrl: 'edit-season-user.component.html' })
-export class EditSeasonUserComponent implements OnInit {
+@Component({templateUrl: 'edit-season-user.component.html'})
+export class EditSeasonUserComponent {
   @Input() tvShowId: number;
   @Input() title: string;
   @Input() seasonNumber: number;
   editForm: FormGroup;
   loading = false;
   submitted = false;
-  places$: Observable<Place[]>;
   tapesUser: TapeUser[];
   public currentUser: User;
 
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private listPlaceGQL: ListPlaceGQL,
-    private listTapeUserStatusGQL: ListTapeUserStatusGQL,
     private editSeasonUserGql: EditSeasonUserGql,
     public activeModal: NgbActiveModal,
     private authenticationService: AuthenticationService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
-  }
-
-  ngOnInit() {
     this.editForm = this.formBuilder.group({
-      tapeUserStatus: ['', Validators.required],
-      place: ['', Validators.required]
+      tapeUserStatus: [],
+      place: []
     });
-    const variables = {
-      page: 1,
-      pageSize: 20
-    };
-    this.places$ = this.listPlaceGQL.watch(variables)
-      .valueChanges
-      .pipe(map(result => result.data.listPlace.elements));
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.editForm.controls; }
+  get f() {
+    return this.editForm.controls;
+  }
 
   editSeasonUser() {
     this.submitted = true;
-    // reset alerts on submit
     this.alertService.clear();
-    // stop here if form is invalid
     if (this.editForm.invalid) {
       return;
     }
@@ -60,8 +44,8 @@ export class EditSeasonUserComponent implements OnInit {
     const variables = {
       tvShowId: this.tvShowId,
       userId: this.currentUser.userId,
-      tapeUserStatusId: this.f.tapeUserStatus.value.tapeUserStatusId,
-      placeId: this.f.place.value.placeId,
+      tapeUserStatusId: this.f.tapeUserStatus.value.tapeUserStatus.tapeUserStatusId,
+      placeId: this.f.place.value.place.placeId,
       season: this.seasonNumber
     };
     this.editSeasonUserGql.mutate(variables)

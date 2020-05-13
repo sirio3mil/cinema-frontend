@@ -7,21 +7,8 @@
 </div>
 <div class="modal-body">
   <form [formGroup]="editForm">
-    <app-tape-user-status [editForm]="editForm" [submitted]="submitted"></app-tape-user-status>
-    <ng-container *ngIf="places$ | async as places; else spinner">
-      <div class="form-group mx-sm-3 mb-2">
-        <label for="place">Where?</label>
-        <select class="form-control" id="place" formControlName="place"
-                [ngClass]="{ 'is-invalid': submitted && f.place.errors }">
-          <option *ngFor="let place of places" [ngValue]="place">
-            {{ place.description }}
-          </option>
-        </select>
-        <div *ngIf="submitted && f.place.errors" class="invalid-feedback">
-          <div *ngIf="f.place.errors.required">Place is required</div>
-        </div>
-      </div>
-    </ng-container>
+    <app-tape-user-status formControlName="tapeUserStatus" [submitted]="submitted"></app-tape-user-status>
+    <app-place formControlName="place" [submitted]="submitted"></app-place>
   </form>
 </div>
 <div class="modal-footer">
@@ -30,10 +17,3 @@
     Save changes
   </button>
 </div>
-<ng-template #spinner>
-  <div class="text-center">
-    <div class="spinner-border text-primary" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-  </div>
-</ng-template>
