@@ -3,7 +3,7 @@ import {TapeUserStatus} from '../_models';
 import {ListTapeUserStatusGQL} from '../_gql';
 import {ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
 import {map} from 'rxjs/operators';
-import {Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 
 export interface TapeUserStatusFormValues {
   tapeUserStatus: TapeUserStatus;
@@ -29,6 +29,7 @@ export class TapeUserStatusComponent implements OnInit, ControlValueAccessor, On
   listTapeUserStatus: TapeUserStatus[];
   statusForm: FormGroup;
   subscriptions: Subscription[] = [];
+  currentListSubject: BehaviorSubject<TapeUserStatus[]>;
 
   @Input() submitted: boolean;
 
@@ -45,6 +46,8 @@ export class TapeUserStatusComponent implements OnInit, ControlValueAccessor, On
         this.onTouched();
       })
     );
+    this.currentListSubject = new BehaviorSubject<TapeUserStatus[]>(JSON.parse(localStorage.getItem('listTapeUserStatus')));
+    this.listTapeUserStatus = this.currentListSubject.getValue();
   }
 
   onChange: any = () => {
@@ -79,17 +82,24 @@ export class TapeUserStatusComponent implements OnInit, ControlValueAccessor, On
   }
 
   ngOnInit() {
+    if (!this.listTapeUserStatus) {
+      this.load();
+    }
+  }
+
+  private load() {
     const variables = {
       page: 1,
       pageSize: 20
     };
-    this.listTapeUserStatusService.watch(variables)
+    this.subscriptions.push(this.listTapeUserStatusService.watch(variables)
       .valueChanges
       .pipe(map(result => result.data.listTapeUserStatus.elements))
       .subscribe(
         (listTapeUserStatus: TapeUserStatus[]) => {
           this.listTapeUserStatus = listTapeUserStatus;
-        });
+          localStorage.setItem('listTapeUserStatus', JSON.stringify(listTapeUserStatus));
+        }));
   }
 
   get f() {

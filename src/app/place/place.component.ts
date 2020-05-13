@@ -3,7 +3,7 @@ import {Place} from '../_models';
 import {ListPlaceGQL} from '../_gql';
 import {ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
 import {map} from 'rxjs/operators';
-import {Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 
 export interface PlaceFormValues {
   place: Place;
@@ -29,6 +29,7 @@ export class PlaceComponent implements OnInit, ControlValueAccessor, OnDestroy {
   placeForm: FormGroup;
   places: Place[];
   subscriptions: Subscription[] = [];
+  currentListSubject: BehaviorSubject<Place[]>;
 
   @Input() submitted: boolean;
 
@@ -45,6 +46,8 @@ export class PlaceComponent implements OnInit, ControlValueAccessor, OnDestroy {
         this.onTouched();
       })
     );
+    this.currentListSubject = new BehaviorSubject<Place[]>(JSON.parse(localStorage.getItem('places')));
+    this.places = this.currentListSubject.getValue();
   }
 
   onChange: any = () => {
@@ -79,17 +82,24 @@ export class PlaceComponent implements OnInit, ControlValueAccessor, OnDestroy {
   }
 
   ngOnInit() {
+    if (!this.places) {
+      this.load();
+    }
+  }
+
+  private load() {
     const variables = {
       page: 1,
       pageSize: 20
     };
-    this.listPlaceGQL.watch(variables)
+    this.subscriptions.push(this.listPlaceGQL.watch(variables)
       .valueChanges
       .pipe(map(result => result.data.listPlace.elements))
       .subscribe(
         (places: Place[]) => {
           this.places = places;
-        });
+          localStorage.setItem('places', JSON.stringify(places));
+        }));
   }
 
   get f() {
