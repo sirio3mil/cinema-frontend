@@ -5,7 +5,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditSeasonUserGql, ListPlaceGQL, ListTapeUserStatusGQL} from '../_gql';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Place, TapeUser, TapeUserStatus, User} from '../_models';
+import {Place, TapeUser, User} from '../_models';
 
 @Component({ templateUrl: 'edit-season-user.component.html' })
 export class EditSeasonUserComponent implements OnInit {
@@ -16,7 +16,6 @@ export class EditSeasonUserComponent implements OnInit {
   loading = false;
   submitted = false;
   places$: Observable<Place[]>;
-  tapeUserStatuses$: Observable<TapeUserStatus[]>;
   tapesUser: TapeUser[];
   public currentUser: User;
 
@@ -44,9 +43,6 @@ export class EditSeasonUserComponent implements OnInit {
     this.places$ = this.listPlaceGQL.watch(variables)
       .valueChanges
       .pipe(map(result => result.data.listPlace.elements));
-    this.tapeUserStatuses$ = this.listTapeUserStatusGQL.watch(variables)
-      .valueChanges
-      .pipe(map(result => result.data.listTapeUserStatus.elements));
   }
 
   // convenience getter for easy access to form fields

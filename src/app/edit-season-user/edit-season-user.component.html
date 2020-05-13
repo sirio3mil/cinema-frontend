@@ -7,20 +7,7 @@
 </div>
 <div class="modal-body">
   <form [formGroup]="editForm">
-    <ng-container *ngIf="tapeUserStatuses$ | async as tapeUserStatuses; else spinner">
-      <div class="form-group mx-sm-3 mb-2">
-        <label for="tapeUserStatus">Status?</label>
-        <select class="form-control" id="tapeUserStatus" formControlName="tapeUserStatus"
-                [ngClass]="{ 'is-invalid': submitted && f.tapeUserStatus.errors }">
-          <option *ngFor="let tapeUserStatus of tapeUserStatuses" [ngValue]="tapeUserStatus">
-            {{ tapeUserStatus.description }}
-          </option>
-        </select>
-        <div *ngIf="submitted && f.tapeUserStatus.errors" class="invalid-feedback">
-          <div *ngIf="f.tapeUserStatus.errors.required">Status is required</div>
-        </div>
-      </div>
-    </ng-container>
+    <app-tape-user-status [editForm]="editForm" [submitted]="submitted"></app-tape-user-status>
     <ng-container *ngIf="places$ | async as places; else spinner">
       <div class="form-group mx-sm-3 mb-2">
         <label for="place">Where?</label>

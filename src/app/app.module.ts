@@ -22,6 +22,7 @@ import {TvShowComponent} from './tv-show';
 import {LastSeenTapesComponent} from './last-seen-tapes';
 import {ListTvShowChapterComponent} from './list-tv-show-chapter';
 import {TapeListCardComponent} from './tape-list-card';
+import {TapeUserStatusComponent} from './tape-user-status';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {TapeListCardComponent} from './tape-list-card';
     TvShowComponent,
     LastSeenTapesComponent,
     ListTvShowChapterComponent,
-    TapeListCardComponent
+    TapeListCardComponent,
+    TapeUserStatusComponent
   ],
   imports: [
     BrowserModule,
