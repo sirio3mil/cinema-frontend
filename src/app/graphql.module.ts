@@ -20,7 +20,7 @@ const link = onError(({ graphQLErrors, networkError }) => {
   if (networkError) { console.log(`[Network error]: ${networkError}`); }
 });
 
-const uri = environment.APIEndpoint;
+const uri = environment.apiEndpoint;
 
 export function createApollo(httpLink: HttpLink, authenticationService: AuthenticationService) {
   const currentUser = authenticationService.currentUserValue;
