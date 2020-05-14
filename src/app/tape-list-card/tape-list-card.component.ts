@@ -12,6 +12,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class TapeListCardComponent {
   @Input() tape: Tape;
+  @Input() route = '';
   faLink = faLink;
   faInfo = faInfo;
   faTrash = faTrash;
@@ -19,7 +20,6 @@ export class TapeListCardComponent {
   faKissBeam = faKissBeam;
   private currentUser: User;
   view = 2;
-  whichList = 3;
 
   constructor(
     private ngbModal: NgbModal,
@@ -72,5 +72,9 @@ export class TapeListCardComponent {
           this.deleteFromWishList(tape);
         }
       });
+  }
+
+  isWishListPage(route: string): boolean {
+    return route === 'home';
   }
 }

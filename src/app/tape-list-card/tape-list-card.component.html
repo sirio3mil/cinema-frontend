@@ -16,7 +16,7 @@
           <a (click)="addTapeUser(tape)" class="btn btn-link m-1">
             <fa-icon [icon]="faPlusCircle"></fa-icon>
           </a>
-          <a (click)="deleteFromWishList(tape)" class="btn btn-link m-1">
+          <a *ngIf="isWishListPage(route)" (click)="deleteFromWishList(tape)" class="btn btn-link m-1">
             <fa-icon [icon]="faTrash"></fa-icon>
           </a>
         </div>
