@@ -24,6 +24,8 @@ import {ListTvShowChapterComponent} from './list-tv-show-chapter';
 import {TapeListCardComponent} from './tape-list-card';
 import {TapeUserStatusComponent} from './tape-user-status';
 import {PlaceComponent} from './place';
+import {DownloadedComponent} from './downloaded';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {PlaceComponent} from './place';
     ListTvShowChapterComponent,
     TapeListCardComponent,
     TapeUserStatusComponent,
-    PlaceComponent
+    PlaceComponent,
+    DownloadedComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import {PlaceComponent} from './place';
     AppRoutingModule,
     GraphQLModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
