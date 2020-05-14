@@ -49,13 +49,12 @@ export class TapeListCardComponent {
     }
   }
 
-  protected isViewed(tape: Tape): boolean {
+  protected is(tape: Tape, status: number): boolean {
     if (tape.tapeUser && tape.tapeUser.history) {
       for (const history of tape.tapeUser.history) {
         const tapeUserStatusId = +history.tapeUserStatus.tapeUserStatusId;
-        switch (tapeUserStatusId) {
-          case this.view:
-            return true;
+        if (tapeUserStatusId === status) {
+          return true;
         }
       }
     }
@@ -69,7 +68,7 @@ export class TapeListCardComponent {
     modalRef.result
       .then(result => {
         tape.tapeUser = result;
-        if (this.isViewed(tape)) {
+        if (this.is(tape, this.view)) {
           this.deleteFromWishList(tape);
         }
       });
