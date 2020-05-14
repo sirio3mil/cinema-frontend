@@ -12,7 +12,7 @@ export class EditTapeUserGql extends Mutation<EditTapeUserResponse> {
       $userId: UserID!,
       $tapeId: TapeID!,
       $tapeUserStatusId: TapeUserStatusID!,
-      $placeId: PlaceID!
+      $placeId: PlaceID
     ){
       editTapeUser(
         userId: $userId,

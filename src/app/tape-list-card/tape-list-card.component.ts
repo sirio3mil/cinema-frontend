@@ -18,6 +18,9 @@ export class TapeListCardComponent {
   faPlusCircle = faPlusCircle;
   faKissBeam = faKissBeam;
   private currentUser: User;
+  view = 2;
+  whichList = 3;
+
   constructor(
     private ngbModal: NgbModal,
     private deleteTapeUserHistoryGql: DeleteTapeUserHistoryGql,
@@ -46,6 +49,19 @@ export class TapeListCardComponent {
     }
   }
 
+  protected isViewed(tape: Tape): boolean {
+    if (tape.tapeUser && tape.tapeUser.history) {
+      for (const history of tape.tapeUser.history) {
+        const tapeUserStatusId = +history.tapeUserStatus.tapeUserStatusId;
+        switch (tapeUserStatusId) {
+          case this.view:
+            return true;
+        }
+      }
+    }
+    return false;
+  }
+
   addTapeUser(tape: Tape) {
     const modalRef = this.ngbModal.open(EditTapeUserComponent);
     modalRef.componentInstance.title = tape.originalTitle;
@@ -53,7 +69,9 @@ export class TapeListCardComponent {
     modalRef.result
       .then(result => {
         tape.tapeUser = result;
-        this.deleteFromWishList(tape);
+        if (this.isViewed(tape)) {
+          this.deleteFromWishList(tape);
+        }
       });
   }
 }
