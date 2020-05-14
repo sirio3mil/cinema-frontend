@@ -15,6 +15,7 @@ export class DownloadedComponent implements OnInit {
   totalItems = 0;
   itemsPerPage = 12;
   loading =  false;
+  route = 'download';
 
   constructor(
     private listTapeUserGql: ListTapeUserGql,
