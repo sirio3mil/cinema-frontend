@@ -38,6 +38,7 @@ export class SearchImageComponent implements OnInit {
   importImage() {
     const regex = /\D+/gm;
     const activeId = +this.carousel.activeId.replace(regex, '');
-    console.log(this.searchResult.items[activeId]);
+    const resultItem = this.searchResult.items[activeId];
+    console.log(resultItem);
   }
 }
