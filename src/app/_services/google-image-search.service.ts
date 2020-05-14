@@ -12,6 +12,6 @@ export class GoogleImageSearchService {
   }
 
   getAll(param: string) {
-    return this.http.get<any>(`${googleSearchEndpoint}?key=${googleApiKey}&cx=${searchEngineKey}&q=${param}&imgSize=large`);
+    return this.http.get<object>(`${googleSearchEndpoint}?key=${googleApiKey}&cx=${searchEngineKey}&q=${param}&imgSize=large`);
   }
 }
