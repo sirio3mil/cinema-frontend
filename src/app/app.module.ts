@@ -26,6 +26,7 @@ import {TapeUserStatusComponent} from './tape-user-status';
 import {PlaceComponent} from './place';
 import {DownloadedComponent} from './downloaded';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {SearchImageComponent} from './search-image';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     TapeListCardComponent,
     TapeUserStatusComponent,
     PlaceComponent,
-    DownloadedComponent
+    DownloadedComponent,
+    SearchImageComponent
   ],
   imports: [
     BrowserModule,

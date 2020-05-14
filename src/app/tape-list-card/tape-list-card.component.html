@@ -29,7 +29,9 @@
   </div>
 </div>
 <ng-template #missingImage>
-  <div class="text-center h1 mt-5">
-    <fa-icon [icon]="faKissBeam"></fa-icon>
+  <div class="text-center mt-5">
+    <a [routerLink]="['/search-images', tape.originalTitle]" class="btn btn-link h1">
+      <fa-icon [icon]="faKissBeam"></fa-icon>
+    </a>
   </div>
 </ng-template>

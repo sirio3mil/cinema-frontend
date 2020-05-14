@@ -13,10 +13,12 @@ import {TvShowComponent} from './tv-show';
 import {LastSeenTapesComponent} from './last-seen-tapes';
 import {ListTvShowChapterComponent} from './list-tv-show-chapter';
 import {DownloadedComponent} from './downloaded';
+import {SearchImageComponent} from './search-image';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
+  { path: 'search-images/:title', component: SearchImageComponent, canActivate: [AuthGuard] },
   { path: 'import-imdb-movie', component: ImportImdbMovieComponent, canActivate: [AuthGuard] },
   { path: 'last-seen-tapes', component: LastSeenTapesComponent, canActivate: [AuthGuard] },
   { path: 'downloaded', component: DownloadedComponent, canActivate: [AuthGuard] },
