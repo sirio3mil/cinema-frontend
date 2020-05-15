@@ -10,11 +10,15 @@ export class SearchGQL extends Query<SearchResponse> {
   document = gql`
     query search(
       $pattern: String!,
-      $rowType: Int!,
+      $page: Int!,
+      $pageSize: Int!,
+      $rowType: Int,
       $userId: UserID!
     ){
       search(
         pattern: $pattern,
+        page: $page,
+        pageSize: $pageSize,
         rowType: $rowType
       ){
         searchParam
@@ -22,6 +26,14 @@ export class SearchGQL extends Query<SearchResponse> {
           tape{
             tapeId
             originalTitle
+            object{
+              imdbNumber{
+                url
+              }
+              thumbnail{
+                url
+              }
+            }
             detail{
               year
               duration

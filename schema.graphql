@@ -456,7 +456,7 @@ type Query {
   listTapeUserStatus(page: Int!, pageSize: Int!): TapeUserStatusPage!
   listTvShowChapter(season: Int!, tvShowId: TvShowID!): [TvShowChapter]!
   login(password: String!, username: String!): User!
-  search(pattern: String!, rowType: Int): [SearchValue]!
+  search(pattern: String!, page: Int!, pageSize: Int!, rowType: Int): [SearchValue]!
   tape(tapeId: TapeID): Tape!
 }
 

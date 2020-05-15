@@ -44,7 +44,9 @@ export class SearchComponent implements OnInit {
     const variables = {
       pattern: this.f.pattern.value,
       rowType: 4,
-      userId: this.currentUser.userId
+      userId: this.currentUser.userId,
+      page: 1,
+      pageSize: 15
     };
     this.searchValues$ = this.searchService.watch(variables)
       .valueChanges
