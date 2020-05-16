@@ -1,6 +1,3 @@
-<button type="button" (click)="importImage()" class="btn btn-outline-dark btn-sm">
-  <fa-icon [icon]="faFileImport"></fa-icon>
-</button>
 <ngb-carousel #carousel [pauseOnHover]="pauseOnHover" [interval]="15000" class="text-center bg-dark">
   <ng-container *ngIf="searchResult; else loading">
     <ng-template ngbSlide *ngFor="let result of searchResult.items">
@@ -10,6 +7,9 @@
       <div class="carousel-caption bg-dark">
         <h3>{{result.title}}</h3>
         <p>{{result.snippet}}</p>
+        <button type="button" (click)="importImage(result.pagemap.cse_image[0].src)" class="btn btn-info btn-sm">
+          <fa-icon [icon]="faFileImport"></fa-icon>
+        </button>
       </div>
     </ng-template>
   </ng-container>

@@ -15,8 +15,16 @@ export class ImportImdbMovieGQL extends Mutation<ImportImdbMovieResponse> {
         tapeId
         originalTitle
         object{
+          objectId
+          files{
+            url
+          }
           imdbNumber{
             imdbNumber
+            url
+          }
+          thumbnail{
+            url
           }
         }
         tvShow{

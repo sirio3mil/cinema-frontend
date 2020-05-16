@@ -40,6 +40,10 @@ export class ListTapeUserGql extends Query<ListTapeUserResponse> {
               }
             },
             object{
+              objectId
+              files{
+                url
+              }
               imdbNumber{
                 url
               }

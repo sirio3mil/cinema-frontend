@@ -28,6 +28,10 @@ export class LoginGql extends Query<LoginResponse> {
             tapeId
             originalTitle
             object{
+              objectId
+              files{
+                url
+              }
               imdbNumber{
                 url
               }

@@ -27,6 +27,10 @@ export class SearchGQL extends Query<SearchResponse> {
             tapeId
             originalTitle
             object{
+              objectId
+              files{
+                url
+              }
               imdbNumber{
                 url
               }

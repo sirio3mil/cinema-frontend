@@ -446,6 +446,7 @@ type Mutation {
   editTapeUser(placeId: PlaceID, tapeId: TapeID!, tapeUserStatusId: TapeUserStatusID!, userId: UserID!): TapeUser!
   editTapeUserHistoryDetail(input: TapeUserHistoryDetailPartialInput!, tapeUserHistoryDetailId: TapeUserHistoryDetailID!): TapeUserHistoryDetail!
   editTvShow(input: TvShowPartialInput!): TvShow!
+  importFile(fileTypeId: FileTypeID, globalUniqueObjectId: GlobalUniqueObjectID!, url: String!): GlobalUniqueObject!
   importImdbEpisodes(imdbNumber: Int!, seasonNumber: Int!): [TvShowChapter]!
   importImdbMovie(imdbNumber: Int!): Tape!
 }
@@ -456,7 +457,7 @@ type Query {
   listTapeUserStatus(page: Int!, pageSize: Int!): TapeUserStatusPage!
   listTvShowChapter(season: Int!, tvShowId: TvShowID!): [TvShowChapter]!
   login(password: String!, username: String!): User!
-  search(pattern: String!, page: Int!, pageSize: Int!, rowType: Int): [SearchValue]!
+  search(page: Int!, pageSize: Int!, pattern: String!, rowType: Int): [SearchValue]!
   tape(tapeId: TapeID): Tape!
 }
 
@@ -512,6 +513,9 @@ scalar TapeUserHistoryDetailID
 
 "Automatically generated type to be used as input where an object of type `GlobalUniqueObject` is needed"
 scalar GlobalUniqueObjectID
+
+"Automatically generated type to be used as input where an object of type `FileType` is needed"
+scalar FileTypeID
 
 """
 The `Upload` special type represents a file to be uploaded in the same HTTP request as specified by

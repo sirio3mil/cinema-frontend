@@ -7,4 +7,5 @@ export interface GlobalUniqueObject {
   imdbNumber: ImdbNumber;
   files: File[];
   thumbnail: File;
+  objectId: string;
 }

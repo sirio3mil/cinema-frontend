@@ -26,7 +26,15 @@ export class DeleteTapeUserHistoryGql extends Mutation<DeleteTapeUserHistoryResp
             }
           },
           object{
+            objectId
+            files{
+              url
+            }
             imdbNumber{
+              imdbNumber
+              url
+            }
+            thumbnail{
               url
             }
           }

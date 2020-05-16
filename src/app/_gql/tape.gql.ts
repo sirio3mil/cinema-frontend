@@ -27,8 +27,15 @@ export class TapeGql extends Query<TapeResponse> {
           updatedAt
         }
         object{
+          objectId
+          files{
+            url
+          }
           imdbNumber{
             imdbNumber
+            url
+          }
+          thumbnail{
             url
           }
         }
