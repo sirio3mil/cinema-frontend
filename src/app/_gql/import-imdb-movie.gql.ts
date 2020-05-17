@@ -14,6 +14,15 @@ export class ImportImdbMovieGQL extends Mutation<ImportImdbMovieResponse> {
       importImdbMovie(imdbNumber: $imdbNumber){
         tapeId
         originalTitle
+        detail{
+          year
+          duration
+          color
+          haveCover
+          adult
+          createdAt
+          updatedAt
+        }
         object{
           objectId
           files{
@@ -27,17 +36,28 @@ export class ImportImdbMovieGQL extends Mutation<ImportImdbMovieResponse> {
             url
           }
         }
-        tvShow{
-          tape{
-            tapeId
+        countries{
+          countryId
+          officialName
+          isoCode
+          language{
+            languageId
+            name
           }
         }
-        tvShowChapter{
-          tape{
-            tapeId
-          }
-          tvShow{
-            tape{
+        genres{
+          genreId
+          name
+        }
+        languages{
+          languageId
+          name
+        }
+        tvShow{
+          chapters{
+            season
+            chapter
+            tape {
               tapeId
             }
           }

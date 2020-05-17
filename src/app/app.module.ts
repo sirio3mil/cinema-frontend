@@ -27,6 +27,7 @@ import {PlaceComponent} from './place';
 import {DownloadedComponent} from './downloaded';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {SearchImageComponent} from './search-image';
+import {TapeDetailComponent} from './tape-detail';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {SearchImageComponent} from './search-image';
     TapeUserStatusComponent,
     PlaceComponent,
     DownloadedComponent,
-    SearchImageComponent
+    SearchImageComponent,
+    TapeDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -1,58 +1,5 @@
 <ng-container *ngIf="tape; else loading">
-  <h1>{{tape.originalTitle}}</h1>
-  <ul class="list-inline">
-    <li *ngIf="viewed" class="list-inline-item">
-      <fa-icon [icon]="faCheckCircle" title="viewed"></fa-icon>
-    </li>
-    <li *ngIf="whichListed" class="list-inline-item">
-      <fa-icon [icon]="faClipboardList" title="save in which list"></fa-icon>
-    </li>
-    <li class="list-inline-item">
-      <a (click)="addTapeUser()" title="edit tape user relations">
-        <fa-icon [icon]="faPlusCircle"></fa-icon>
-      </a>
-    </li>
-    <li *ngIf="viewed" class="list-inline-item">
-      <a (click)="toggleVisibility()" title="toggle visibility">
-        <fa-icon [icon]="faCloudSun"></fa-icon>
-      </a>
-    </li>
-    <li class="list-inline-item">
-      <a href="{{tape.object.imdbNumber.url}}" target="_blank" title="go to Imdb">
-        <fa-icon [icon]="faLink"></fa-icon>
-      </a>
-    </li>
-  </ul>
-  <ul class="list-inline">
-    <ng-container *ngIf="seasons && seasons.length">
-      <li *ngFor="let season of seasons" class="list-inline-item">
-        <a [routerLink]="['/tv-show-chapter', tape.tapeId, season.number]" title="see season chapters">
-          S{{season.code}}
-        </a>
-      </li>
-    </ng-container>
-    <ng-container *ngIf="tape.tvShow">
-      <li class="list-inline-item">
-        <a [routerLink]="['/import-imdb-episode', tape.object.imdbNumber.imdbNumber]" title="import episodes">
-          <fa-icon [icon]="faFileImport"></fa-icon>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a (click)="toggleFinishedStatus()" title="toggle Tv Show finish status">
-          <fa-icon [icon]="faHourglassEnd"></fa-icon>
-        </a>
-      </li>
-    </ng-container>
-  </ul>
-  <ng-container *ngIf="tape.tvShow && tape.tvShow.summaryByUser">
-    <p *ngIf="tape.tvShow.summaryByUser.viewedChapter as chapter">
-      Last viewed chapter S{{chapter.season.toString(10).padStart(2, '0')}}
-      E{{chapter.chapter.toString(10).padStart(2, '0')}}
-    </p>
-    <p *ngIf="tape.tvShow.summaryByUser.importedChapter as chapter">
-      Last chapter S{{chapter.season.toString(10).padStart(2, '0')}}E{{chapter.chapter.toString(10).padStart(2, '0')}}
-    </p>
-  </ng-container>
+  <app-tape-detail [tape]="tape"></app-tape-detail>
 </ng-container>
 <ng-template #loading>
   <div class="text-center">

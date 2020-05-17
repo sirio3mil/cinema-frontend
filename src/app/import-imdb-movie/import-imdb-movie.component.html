@@ -16,19 +16,7 @@
       </button>
     </form>
     <ng-container *ngIf="tape">
-      <h2>{{tape.originalTitle}}</h2>
-      <ul class="list-inline">
-        <li class="list-inline-item">
-          <a (click)="addTapeUser()">
-            <fa-icon [icon]="faPlusCircle"></fa-icon>
-          </a>
-        </li>
-        <li *ngIf="tape.tvShow" class="list-inline-item">
-          <a [routerLink]="['/import-imdb-episode', tape.object.imdbNumber.imdbNumber]">
-            <fa-icon [icon]="faFileImport"></fa-icon>
-          </a>
-        </li>
-      </ul>
+      <app-tape-detail [tape]="tape"></app-tape-detail>
     </ng-container>
   </div>
 </div>
