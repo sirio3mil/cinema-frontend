@@ -17,6 +17,11 @@
     </a>
   </li>
   <li class="list-inline-item">
+    <a [routerLink]="['/search-images', tape.originalTitle, tape.object.objectId]" title="search images">
+      <fa-icon [icon]="faImages"></fa-icon>
+    </a>
+  </li>
+  <li class="list-inline-item">
     <a href="{{tape.object.imdbNumber.url}}" target="_blank" title="go to Imdb">
       <fa-icon [icon]="faLink"></fa-icon>
     </a>

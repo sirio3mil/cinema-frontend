@@ -64,6 +64,7 @@ type GlobalUniqueObject {
   searchValues: [SearchValue!]
   tape: Tape
   thumbnail: File
+  cover: File
 }
 
 "Class Image"

@@ -10,7 +10,8 @@ import {
   faClipboardList,
   faHourglassEnd,
   faLink,
-  faCloudSun
+  faCloudSun,
+  faImages
 } from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserComponent} from '../edit-tape-user';
@@ -38,6 +39,7 @@ export class TapeDetailComponent implements OnInit {
   faHourglassEnd = faHourglassEnd;
   faLink = faLink;
   faCloudSun = faCloudSun;
+  faImages = faImages;
 
   view = 2;
   whichList = 3;
