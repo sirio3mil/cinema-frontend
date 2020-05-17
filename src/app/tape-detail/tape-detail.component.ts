@@ -138,4 +138,8 @@ export class TapeDetailComponent implements OnInit {
       }
     }
   }
+
+  pad(data: number): string {
+    return data.toString(10).padStart(2, '0');
+  }
 }
