@@ -68,6 +68,28 @@ export class ListTapeUserGql extends Query<ListTapeUserResponse> {
             detail{
               year
             }
+            tapeUser(
+              user: $userId
+            ){
+              tapeUserId
+              history{
+                tapeUserHistoryId
+                details{
+                  tapeUserHistoryDetailId,
+                  visible
+                  exported
+                  place{
+                    placeId
+                    description
+                  }
+                  createdAt
+                }
+                tapeUserStatus{
+                  tapeUserStatusId
+                  description
+                }
+              }
+            }
           }
         }
       }
