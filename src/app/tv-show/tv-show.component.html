@@ -1,6 +1,6 @@
 <h1>TV Shows</h1>
 <ng-container *ngIf="tapesUser$ | async as tapeUsers; else loading">
-  <div class="row row-cols-1 row-cols-md-3">
+  <div class="row row-cols-1 row-cols-md-4">
     <app-tape-list-card *ngFor="let tapeUser of tapeUsers" [tape]="tapeUser.tape"></app-tape-list-card>
   </div>
 </ng-container>

@@ -1,7 +1,7 @@
 ﻿<h1>Hi {{currentUser.oauthUser.firstName}}!</h1>
 <p>This is your wish list!!</p>
 <ng-container *ngIf="currentUser.wishList">
-  <div class="row row-cols-1 row-cols-md-3">
+  <div class="row row-cols-1 row-cols-md-4">
     <app-tape-list-card *ngFor="let wishList of currentUser.wishList" [tape]="wishList.tape" [route]="route"></app-tape-list-card>
   </div>
 </ng-container>

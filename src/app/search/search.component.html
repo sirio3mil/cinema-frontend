@@ -18,7 +18,7 @@
   </div>
 </div>
 <ng-container *ngIf="searchValues$ | async as searchValues">
-  <div class="row row-cols-1 row-cols-md-3 mt-3">
+  <div class="row row-cols-1 row-cols-md-4 mt-3">
     <app-tape-list-card *ngFor="let searchValue of searchValues" [tape]="searchValue.object.tape"></app-tape-list-card>
   </div>
 </ng-container>

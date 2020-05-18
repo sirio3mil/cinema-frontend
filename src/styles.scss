@@ -9,3 +9,11 @@ a:not([href]) {
 a:not([href]):hover {
   color: #0056b3;
 }
+.container{
+  max-width: 100%;
+}
+.card-list-image-div{
+  height: 275px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

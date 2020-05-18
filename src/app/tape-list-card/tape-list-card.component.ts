@@ -77,4 +77,12 @@ export class TapeListCardComponent {
   isWishListPage(route: string): boolean {
     return route === 'home';
   }
+
+  printTitle(tape: Tape) {
+    return tape.default.title && tape.originalTitle !== tape.default.title.searchParam;
+  }
+
+  printDirector(tape: Tape) {
+    return tape.default.director && (!tape.default.cast || tape.default.cast.fullName !== tape.default.director.fullName);
+  }
 }

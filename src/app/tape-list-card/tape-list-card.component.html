@@ -1,9 +1,8 @@
 <div class="col mb-4 tape-card">
   <div class="card h-100">
     <div class="row no-gutters">
-      <div class="col-md-4">
-        <img *ngIf="tape.object.thumbnail; else missingImage" src="{{tape.object.thumbnail.url}}" class="card-img"
-             alt="{{tape.originalTitle}}">
+      <div *ngIf="tape.object.thumbnail; else missingImage" class="col-md-4 card-list-image-div"
+           [ngStyle]="{'background-image': 'url(' + tape.object.thumbnail.url + ')'}">
       </div>
       <div class="col-md-8">
         <div class="card-header">
@@ -22,16 +21,22 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">{{tape.originalTitle}} {{tape.detail.year}}</h5>
-          <p class="card-text">{{tape.default.title.searchParam}}</p>
+          <ng-container *ngIf="tape.default">
+            <p *ngIf="printTitle(tape)" class="card-text">{{tape.default.title.searchParam}}</p>
+            <p *ngIf="tape.default.cast" class="card-text">{{tape.default.cast.fullName}}</p>
+            <p *ngIf="printDirector(tape)" class="card-text">{{tape.default.director.fullName}}</p>
+          </ng-container>
         </div>
       </div>
     </div>
   </div>
 </div>
 <ng-template #missingImage>
-  <div class="text-center mt-5">
-    <a [routerLink]="['/search-images', tape.originalTitle, tape.object.objectId]" class="btn btn-link h1">
-      <fa-icon [icon]="faKissBeam"></fa-icon>
-    </a>
+  <div class="col-md-4 card-list-image-div">
+    <div class="text-center mt-5">
+      <a [routerLink]="['/search-images', tape.originalTitle, tape.object.objectId]" class="btn btn-link h1">
+        <fa-icon [icon]="faKissBeam"></fa-icon>
+      </a>
+    </div>
   </div>
 </ng-template>
