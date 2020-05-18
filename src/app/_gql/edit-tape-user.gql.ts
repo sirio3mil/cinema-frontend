@@ -29,6 +29,7 @@ export class EditTapeUserGql extends Mutation<EditTapeUserResponse> {
           createdAt
         }
         history{
+          tapeUserHistoryId
           details{
             visible
             exported
