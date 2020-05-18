@@ -40,3 +40,5 @@ export * from './fileType';
 export * from './file';
 export * from './fileSeason';
 export * from './image';
+export * from './people';
+export * from './tapeDefaultValue';

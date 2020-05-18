@@ -26,6 +26,20 @@ export class TapeGql extends Query<TapeResponse> {
           createdAt
           updatedAt
         }
+        default{
+          title{
+            searchParam
+          }
+          cast{
+            fullName
+          }
+          director{
+            fullName
+          }
+          country{
+            officialName
+          }
+        }
         object{
           objectId
           cover{

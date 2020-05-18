@@ -51,6 +51,23 @@ export class ListTapeUserGql extends Query<ListTapeUserResponse> {
                 url
               }
             }
+            default{
+              title{
+                searchParam
+              }
+              cast{
+                fullName
+              }
+              director{
+                fullName
+              }
+              country{
+                officialName
+              }
+            }
+            detail{
+              year
+            }
           }
         }
       }

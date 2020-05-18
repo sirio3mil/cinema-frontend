@@ -39,6 +39,23 @@ export class LoginGql extends Query<LoginResponse> {
                 url
               }
             }
+            default{
+              title{
+                searchParam
+              }
+              cast{
+                fullName
+              }
+              director{
+                fullName
+              }
+              country{
+                officialName
+              }
+            }
+            detail{
+              year
+            }
           }
           tapeUserHistory{
             tapeUserHistoryId

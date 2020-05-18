@@ -6,6 +6,7 @@ import {TvShowChapter} from './tvShowChapter';
 import {Country} from './country';
 import {Genre} from './genre';
 import {Language} from './language';
+import {TapeDefaultValue} from './tapeDefaultValue';
 
 export interface Tape {
   tapeId: number;
@@ -18,4 +19,5 @@ export interface Tape {
   countries: Country[];
   genres: Genre[];
   languages: Language[];
+  default: TapeDefaultValue;
 }
