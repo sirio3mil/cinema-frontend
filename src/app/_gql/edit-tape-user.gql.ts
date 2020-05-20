@@ -23,6 +23,37 @@ export class EditTapeUserGql extends Mutation<EditTapeUserResponse> {
         tapeUserId
         tape{
           tapeId
+          originalTitle
+          object{
+            objectId
+            files{
+              url
+            }
+            imdbNumber{
+              url
+            }
+            thumbnail{
+              url
+            }
+          }
+          default{
+            title{
+              searchParam
+            }
+            cast{
+              fullName
+            }
+            director{
+              fullName
+            }
+            country{
+              officialName
+            }
+          }
+          detail{
+            year
+            isTvShow
+          }
         }
         score{
           score

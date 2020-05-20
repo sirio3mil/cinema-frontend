@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '../_services';
 import {map, switchMap} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
@@ -11,9 +11,9 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {faPlusCircle, faCheckCircle, faUndo} from '@fortawesome/free-solid-svg-icons';
 
 @Component({templateUrl: 'list-tv-show-chapter.component.html'})
-export class ListTvShowChapterComponent implements OnInit {
-  public currentUser: User;
-  public subscription: Subscription;
+export class ListTvShowChapterComponent implements OnInit, OnDestroy {
+  private readonly currentUser: User;
+  private subscriptions: Subscription[] = [];
   tvShowChapters: TvShowChapter[];
   tvShowId: number;
   season: number;
@@ -32,7 +32,11 @@ export class ListTvShowChapterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscription = this.route.paramMap
+    this.load();
+  }
+
+  private load() {
+    this.subscriptions.push(this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) => {
           this.tvShowId = +params.get('tvShowId');
@@ -48,7 +52,11 @@ export class ListTvShowChapterComponent implements OnInit {
         })
       ).subscribe((tvShowChapters: TvShowChapter[]) => {
         this.tvShowChapters = tvShowChapters;
-      });
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   addSeasonUser() {

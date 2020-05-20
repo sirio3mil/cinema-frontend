@@ -14,6 +14,7 @@ export interface Tape {
   detail: TapeDetail;
   tapeUser: TapeUser;
   object: GlobalUniqueObject;
+  isTvShow: boolean;
   tvShow: TvShow;
   tvShowChapter: TvShowChapter;
   countries: Country[];

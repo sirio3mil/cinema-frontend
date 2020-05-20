@@ -1,23 +1,30 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from '../_services';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AuthenticationService, LastSeenTapesService} from '../_services';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {TapeUser, User} from '../_models';
 import {ListTapeUserGql} from '../_gql';
 
-@Component({ templateUrl: 'last-seen-tapes.component.html' })
-export class LastSeenTapesComponent implements OnInit {
-  public currentUser: User;
-  tapesUser$: Observable<TapeUser[]>;
+@Component({templateUrl: 'last-seen-tapes.component.html'})
+export class LastSeenTapesComponent implements OnInit, OnDestroy {
+  private readonly currentUser: User;
+  tapeUsers: TapeUser[];
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private listTapeUserGql: ListTapeUserGql,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private lastSeenTapesService: LastSeenTapesService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
+    this.tapeUsers = this.lastSeenTapesService.subscribed;
   }
 
   ngOnInit() {
+    this.load();
+  }
+
+  private load() {
     const variables = {
       userId: this.currentUser.userId,
       tapeUserStatusId: 2,
@@ -25,8 +32,16 @@ export class LastSeenTapesComponent implements OnInit {
       page: 1,
       pageSize: 50
     };
-    this.tapesUser$ = this.listTapeUserGql.watch(variables)
+    this.subscriptions.push(this.listTapeUserGql.watch(variables)
       .valueChanges
-      .pipe(map(result => result.data.listTapeUser.elements));
+      .pipe(map(result => result.data.listTapeUser.elements))
+      .subscribe((items: TapeUser[]) => {
+        this.tapeUsers = items;
+        this.lastSeenTapesService.save(items);
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 }

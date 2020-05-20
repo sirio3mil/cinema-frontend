@@ -5,6 +5,7 @@ import {DeleteTapeUserHistoryGql} from '../_gql';
 import {AlertService, AuthenticationService} from '../_services';
 import {EditTapeUserComponent} from '../edit-tape-user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EMPTY} from 'rxjs';
 
 @Component({
   selector: 'app-tape-list-card',
@@ -18,9 +19,9 @@ export class TapeListCardComponent {
   faTrash = faTrash;
   faPlusCircle = faPlusCircle;
   faKissBeam = faKissBeam;
-  private currentUser: User;
-  view = 2;
-  downloaded = 1;
+  private readonly currentUser: User;
+  private tapeUserStatusViewed = 2;
+  private tapeUserStatusDownloaded = 1;
 
   constructor(
     private ngbModal: NgbModal,
@@ -33,7 +34,13 @@ export class TapeListCardComponent {
 
   deleteFromWishList(tape: Tape) {
     const {tapeUserHistoryId, wishListIndex} = this.getWishListIds(tape);
-    this.deleteTapeUserHistory(tapeUserHistoryId, this.currentUser.wishList, wishListIndex);
+    this.deleteTapeUserHistory(tapeUserHistoryId).subscribe(() => {
+      if (wishListIndex) {
+        this.currentUser.wishList.splice(wishListIndex, 1);
+      }
+      this.alertService.success('Deleted successfully');
+      localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+    });
   }
 
   private getWishListIds(tape: Tape) {
@@ -51,32 +58,34 @@ export class TapeListCardComponent {
 
   deleteFromDownloaded(tape: Tape, list: Tape[] | null) {
     if (list) {
-      this.deleteFromList(tape, list, this.downloaded);
+      this.deleteFromList(tape, list, this.tapeUserStatusDownloaded);
     } else {
-      const tapeUserHistoryId = this.getTapeUserHistoryId(tape, this.downloaded);
-      this.deleteTapeUserHistory(tapeUserHistoryId, null, null);
+      const tapeUserHistoryId = this.getTapeUserHistoryId(tape, this.tapeUserStatusDownloaded);
+      this.deleteTapeUserHistory(tapeUserHistoryId).subscribe(() => {
+        this.alertService.success('Deleted successfully');
+      });
     }
   }
 
   deleteFromList(tape: Tape, list: Tape[], status: number) {
     const {tapeUserHistoryId, listIndex} = this.search(list, tape, status);
-    this.deleteTapeUserHistory(tapeUserHistoryId, list, listIndex);
+    this.deleteTapeUserHistory(tapeUserHistoryId).subscribe(() => {
+      if (listIndex) {
+        list.splice(listIndex, 1);
+      }
+      this.alertService.success('Deleted successfully');
+    });
   }
 
-  private deleteTapeUserHistory(tapeUserHistoryId: number, list: any[] | null, listIndex: number | null) {
+  private deleteTapeUserHistory(tapeUserHistoryId: number) {
     this.alertService.clear();
     if (tapeUserHistoryId > 0) {
       const variables = {
         tapeUserHistoryId
       };
-      this.deleteTapeUserHistoryGql.mutate(variables)
-        .subscribe(() => {
-          if (listIndex) {
-            list.splice(listIndex, 1);
-          }
-          this.alertService.success('Deleted successfully');
-        });
+      return this.deleteTapeUserHistoryGql.mutate(variables);
     }
+    return EMPTY;
   }
 
   private search(list: Tape[], target: Tape, status: number) {
@@ -111,7 +120,7 @@ export class TapeListCardComponent {
     modalRef.result
       .then(result => {
         tape.tapeUser = result;
-        if (this.getTapeUserHistoryId(tape, this.view)) {
+        if (this.getTapeUserHistoryId(tape, this.tapeUserStatusViewed)) {
           this.deleteFromWishList(tape);
         }
       });
