@@ -1,5 +1,5 @@
 ﻿import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {LoginResponse, User} from '../_models';
 import {ApolloQueryResult} from 'apollo-client';
 
@@ -8,9 +8,11 @@ import {ApolloQueryResult} from 'apollo-client';
 })
 export class AuthenticationService {
   public currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
 
   constructor() {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get currentUserValue(): User {
