@@ -21,8 +21,10 @@ export class TapeGql extends Query<TapeResponse> {
           year
           duration
           color
-          haveCover
-          adult
+          hasCover
+          isTvShow
+          isTvShowChapter
+          isAdult
           createdAt
           updatedAt
         }

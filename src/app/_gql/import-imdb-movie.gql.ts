@@ -18,8 +18,10 @@ export class ImportImdbMovieGQL extends Mutation<ImportImdbMovieResponse> {
           year
           duration
           color
-          haveCover
-          adult
+          hasCover
+          isTvShow
+          isTvShowChapter
+          isAdult
           createdAt
           updatedAt
         }
