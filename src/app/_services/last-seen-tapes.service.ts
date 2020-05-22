@@ -26,4 +26,9 @@ export class LastSeenTapesService {
     localStorage.setItem('lastSeenTapes', JSON.stringify(this.subscribed));
     this.currentListSubject.next(this.subscribed);
   }
+
+  delete() {
+    localStorage.removeItem('lastSeenTapes');
+    this.currentListSubject.next(null);
+  }
 }

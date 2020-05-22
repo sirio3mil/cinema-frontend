@@ -26,4 +26,9 @@ export class TvShowService {
     localStorage.setItem('subscribedTvShows', JSON.stringify(this.subscribed));
     this.currentListSubject.next(this.subscribed);
   }
+
+  delete() {
+    localStorage.removeItem('subscribedTvShows');
+    this.currentListSubject.next(null);
+  }
 }
