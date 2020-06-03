@@ -9,7 +9,7 @@
           <a [routerLink]="['/tape', tape.tapeId]" class="btn btn-link m-1">
             <fa-icon [icon]="faInfo"></fa-icon>
           </a>
-          <a href="{{tape.object.imdbNumber.url}}" target="_blank" class="btn btn-link m-1">
+          <a *ngIf="tape.object.imdbNumber" href="{{tape.object.imdbNumber.url}}" target="_blank" class="btn btn-link m-1">
             <fa-icon [icon]="faLink"></fa-icon>
           </a>
           <a (click)="addTapeUser(tape)" class="btn btn-link m-1">
