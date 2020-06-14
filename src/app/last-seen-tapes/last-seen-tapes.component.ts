@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthenticationService, LastSeenTapesService} from '../_services';
+import {AuthenticationService} from '../_services';
 import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {TapeUser, User} from '../_models';
@@ -13,11 +13,9 @@ export class LastSeenTapesComponent implements OnInit, OnDestroy {
 
   constructor(
     private listTapeUserGql: ListTapeUserGql,
-    private authenticationService: AuthenticationService,
-    private lastSeenTapesService: LastSeenTapesService
+    private authenticationService: AuthenticationService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
-    this.tapeUsers = this.lastSeenTapesService.subscribed;
   }
 
   ngOnInit() {
@@ -37,7 +35,6 @@ export class LastSeenTapesComponent implements OnInit, OnDestroy {
       .pipe(map(result => result.data.listTapeUser.elements))
       .subscribe((items: TapeUser[]) => {
         this.tapeUsers = items;
-        this.lastSeenTapesService.save(items);
       }));
   }
 

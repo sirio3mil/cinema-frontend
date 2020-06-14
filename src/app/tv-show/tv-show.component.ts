@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthenticationService, TvShowService} from '../_services';
+import {AuthenticationService} from '../_services';
 import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {TapeUser, User} from '../_models';
@@ -13,17 +13,13 @@ export class TvShowComponent implements OnInit, OnDestroy {
 
   constructor(
     private listTapeUserGql: ListTapeUserGql,
-    private authenticationService: AuthenticationService,
-    private tvShowService: TvShowService
+    private authenticationService: AuthenticationService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
-    this.tapeUsers = this.tvShowService.subscribed;
   }
 
   ngOnInit() {
-    if (!this.tapeUsers) {
-      this.load();
-    }
+    this.load();
   }
 
   ngOnDestroy(): void {
@@ -45,7 +41,6 @@ export class TvShowComponent implements OnInit, OnDestroy {
       .pipe(map(result => result.data.listTapeUser.elements))
       .subscribe((items: TapeUser[]) => {
         this.tapeUsers = items;
-        this.tvShowService.save(items);
       }));
   }
 }

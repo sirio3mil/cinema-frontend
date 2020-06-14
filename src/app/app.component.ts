@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthenticationService, LastSeenTapesService, TvShowService} from './_services';
+import {AuthenticationService} from './_services';
 import {User} from './_models';
 import {faHome, faSearch, faSignOutAlt, faFileImport, faCopyright, faVideo, faEye, faDownload} from '@fortawesome/free-solid-svg-icons';
 
@@ -25,17 +25,13 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private lastSeenTapesService: LastSeenTapesService,
-    private tvShowService: TvShowService
+    private authenticationService: AuthenticationService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   logout() {
     this.authenticationService.logout();
-    this.tvShowService.delete();
-    this.lastSeenTapesService.delete();
     this.router.navigate(['/login']);
   }
 }

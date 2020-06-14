@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AlertService, AuthenticationService, LastSeenTapesService, TvShowService} from '../_services';
+import {AlertService, AuthenticationService} from '../_services';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditTapeUserGql} from '../_gql';
 import {TapeUser, User, WishList} from '../_models';
@@ -14,7 +14,6 @@ export class EditTapeUserComponent {
   submitted = false;
   private tapeUser: TapeUser;
   private readonly currentUser: User;
-  private tapeUserStatusViewed = 2;
   private tapeUserStatusDownloaded = 1;
   private tapeUserStatusWishListed = 3;
 
@@ -23,9 +22,7 @@ export class EditTapeUserComponent {
     private alertService: AlertService,
     private editTapeUserService: EditTapeUserGql,
     public activeModal: NgbActiveModal,
-    private authenticationService: AuthenticationService,
-    private tvShowService: TvShowService,
-    private lastSeenTapesService: LastSeenTapesService
+    private authenticationService: AuthenticationService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
     this.editForm = this.formBuilder.group({
@@ -59,14 +56,6 @@ export class EditTapeUserComponent {
         this.submitted = false;
         this.tapeUser = result.data.editTapeUser;
         switch (tapeUserStatusId) {
-          case this.tapeUserStatusViewed:
-            if (this.tapeUser.tape.detail.isTvShow){
-              this.tvShowService.add(this.tapeUser);
-            }
-            else{
-              this.lastSeenTapesService.add(this.tapeUser);
-            }
-            break;
           case this.tapeUserStatusWishListed:
             const waldo = {
               tape: this.tapeUser.tape,
