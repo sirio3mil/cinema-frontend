@@ -1,7 +1,12 @@
 <h1>Last seen tapes</h1>
 <ng-container *ngIf="tapeUsers; else loading">
   <div class="row row-cols-1 row-cols-md-4">
-    <app-tape-list-card *ngFor="let tapeUser of tapeUsers" [tape]="tapeUser.tape"></app-tape-list-card>
+    <app-tape-list-card
+      *ngFor="let tapeUser of tapeUsers | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+      [tape]="tapeUser.tape" [route]="route"></app-tape-list-card>
+  </div>
+  <div class="row row-cols-1 row-cols-md-1 text-center">
+    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
   </div>
 </ng-container>
 <ng-template #loading>
