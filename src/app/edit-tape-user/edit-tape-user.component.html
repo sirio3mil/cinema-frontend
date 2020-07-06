@@ -8,7 +8,9 @@
 <div class="modal-body">
   <form [formGroup]="editForm">
     <app-tape-user-status formControlName="tapeUserStatus" [submitted]="submitted"></app-tape-user-status>
-    <app-place formControlName="place" [submitted]="submitted"></app-place>
+    <ng-container *ngIf="tapeUserStatusId === tapeUserStatusViewed">
+      <app-place formControlName="place" [submitted]="submitted"></app-place>
+    </ng-container>
   </form>
 </div>
 <div class="modal-footer">

@@ -14,8 +14,9 @@ export class EditTapeUserComponent {
   submitted = false;
   private tapeUser: TapeUser;
   private readonly currentUser: User;
-  private tapeUserStatusDownloaded = 1;
-  private tapeUserStatusWishListed = 3;
+  private readonly tapeUserStatusDownloaded = 1;
+  public readonly tapeUserStatusViewed = 2;
+  private readonly tapeUserStatusWishListed = 3;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +36,20 @@ export class EditTapeUserComponent {
     return this.editForm.controls;
   }
 
+  get tapeUserStatusId() {
+    if (this.f.tapeUserStatus.value === null){
+      return null;
+    }
+    return +this.f.tapeUserStatus.value.tapeUserStatus.tapeUserStatusId;
+  }
+
+  get placeId() {
+    if (this.f.place.value === null){
+      return null;
+    }
+    return +this.f.place.value.place.placeId;
+  }
+
   editTapeUser() {
     this.submitted = true;
     this.alertService.clear();
@@ -42,14 +57,16 @@ export class EditTapeUserComponent {
       return;
     }
     this.loading = true;
-    const tapeUserStatusId = +this.f.tapeUserStatus.value.tapeUserStatus.tapeUserStatusId;
-    const placeId = +this.f.place.value.place.placeId;
+    const tapeUserStatusId = this.tapeUserStatusId;
     const variables = {
       tapeId: this.tapeId,
       userId: this.currentUser.userId,
       tapeUserStatusId,
-      placeId
+      placeId: undefined
     };
+    if (this.tapeUserStatusId === this.tapeUserStatusViewed){
+      variables.placeId = this.placeId;
+    }
     this.editTapeUserService.mutate(variables)
       .subscribe(result => {
         this.loading = false;
