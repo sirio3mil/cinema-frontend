@@ -58,6 +58,13 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">{{tape.originalTitle}}</h5>
+        <ng-template #t let-fill="fill">
+          <span class="star" [class.full]="fill === 100">
+            <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+          </span>
+        </ng-template>
+        <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [max]="5"></ngb-rating>
+        <p>Rate: <b>{{currentRate}}</b></p>
         <ng-container *ngIf="tape.tvShow && tape.tvShow.summaryByUser">
           <p *ngIf="tape.tvShow.summaryByUser.viewedChapter as chapter">
             Last viewed chapter S{{pad(chapter.season)}}E{{pad(chapter.chapter)}}

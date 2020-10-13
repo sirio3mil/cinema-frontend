@@ -1,20 +1,20 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AlertService, AuthenticationService} from '../_services';
-import {EditTapeUserHistoryDetailGql, EditTvShowGql} from '../_gql';
-import {Tape, TvShowChapterSummary, User} from '../_models';
-import {angularMath} from 'angular-ts-math';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   faCheckCircle,
-  faFileImport,
-  faPlusCircle,
   faClipboardList,
-  faHourglassEnd,
-  faLink,
   faCloudSun,
-  faImages
+  faFileImport,
+  faHourglassEnd,
+  faImages,
+  faLink,
+  faPlusCircle
 } from '@fortawesome/free-solid-svg-icons';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {EditTapeUserComponent} from '../edit-tape-user';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { angularMath } from 'angular-ts-math';
+import { EditTapeUserHistoryDetailGql, EditTvShowGql } from '../_gql';
+import { Tape, TvShowChapterSummary, User } from '../_models';
+import { AlertService, AuthenticationService } from '../_services';
+import { EditTapeUserComponent } from '../edit-tape-user';
 
 class SeasonDetail {
   number: number;
@@ -24,7 +24,23 @@ class SeasonDetail {
 
 @Component({
   selector: 'app-tape-detail',
-  templateUrl: 'tape-detail.component.html'
+  templateUrl: 'tape-detail.component.html',
+  styles: [`
+    .star {
+      position: relative;
+      display: inline-block;
+      color: #d3d3d3;
+    }
+    .full {
+      color: #1e90ff;
+    }
+    .half {
+      position: absolute;
+      display: inline-block;
+      overflow: hidden;
+      color: #1e90ff;
+    }
+  `]
 })
 export class TapeDetailComponent implements OnInit {
   @Input() tape: Tape;
@@ -45,6 +61,7 @@ export class TapeDetailComponent implements OnInit {
   whichList = 3;
   viewed = false;
   whichListed = false;
+  currentRate = 0;
 
   constructor(
     private alertService: AlertService,
@@ -59,6 +76,7 @@ export class TapeDetailComponent implements OnInit {
   ngOnInit() {
     this.setTapeUserStatus();
     this.setSeasonDetails();
+    this.setRating();
   }
 
   addTapeUser() {
@@ -66,10 +84,16 @@ export class TapeDetailComponent implements OnInit {
     modalRef.componentInstance.title = this.tape.originalTitle;
     modalRef.componentInstance.tapeId = this.tape.tapeId;
     modalRef.result
-      .then(result => {
-        this.tape.tapeUser = result;
-        this.setTapeUserStatus();
-      });
+    .then(result => {
+      this.tape.tapeUser = result;
+      this.setTapeUserStatus();
+    });
+  }
+
+  protected setRating() {
+    if (this.tape.object.ranking && this.tape.object.ranking.calculatedScore) {
+      this.currentRate = +this.tape.object.ranking.calculatedScore;
+    }
   }
 
   protected setTapeUserStatus() {
@@ -116,9 +140,9 @@ export class TapeDetailComponent implements OnInit {
       finished: !this.tape.tvShow.finished
     };
     this.editTvShowGql.mutate(variables)
-      .subscribe(result => {
-        this.tape.tvShow.finished = result.data.editTvShow.finished;
-      });
+    .subscribe(result => {
+      this.tape.tvShow.finished = result.data.editTvShow.finished;
+    });
   }
 
   toggleVisibility() {
@@ -131,9 +155,9 @@ export class TapeDetailComponent implements OnInit {
             visible: !detail.visible
           };
           this.editTapeUserHistoryDetailGql.mutate(variables)
-            .subscribe(result => {
-              detail = result.data.editTapeUserHistoryDetail;
-            });
+          .subscribe(result => {
+            detail = result.data.editTapeUserHistoryDetail;
+          });
         }
       }
     }

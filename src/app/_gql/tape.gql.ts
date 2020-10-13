@@ -44,6 +44,11 @@ export class TapeGql extends Query<TapeResponse> {
         }
         object{
           objectId
+          ranking{
+            calculatedScore
+            score
+            votes
+          }
           cover{
             url
           }
