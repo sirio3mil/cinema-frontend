@@ -81,6 +81,14 @@ export class EditTapeUserComponent {
             this.currentUser.wishList.push(waldo);
             this.authenticationService.save(this.currentUser);
             break;
+          case this.tapeUserStatusViewed:
+            for (const [index, value] of this.currentUser.wishList.entries()) {
+              if (value.tape.tapeId === this.tapeUser.tape.tapeId) {
+                this.currentUser.wishList.splice(index, 1);
+                this.authenticationService.save(this.currentUser);
+              }
+            }
+            break;
           case this.tapeUserStatusDownloaded:
             break;
         }
