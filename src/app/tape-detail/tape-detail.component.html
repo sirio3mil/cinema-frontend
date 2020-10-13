@@ -64,7 +64,12 @@
           </span>
         </ng-template>
         <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [max]="5"></ngb-rating>
-        <p>Rate: <b>{{currentRate}}</b></p>
+        <ng-container *ngIf="currentRate > 0">
+          <p [ngClass]="{'mb-0': tape.tapeUser.score && tape.tapeUser.score.score > 0}">Rate: <b>{{currentRate}}</b></p>
+          <p *ngIf="tape.tapeUser.score && tape.tapeUser.score.score > 0">
+            Your rate: <b>{{tape.tapeUser.score.score}}</b>
+          </p>
+        </ng-container>
         <ng-container *ngIf="tape.tvShow && tape.tvShow.summaryByUser">
           <p *ngIf="tape.tvShow.summaryByUser.viewedChapter as chapter">
             Last viewed chapter S{{pad(chapter.season)}}E{{pad(chapter.chapter)}}

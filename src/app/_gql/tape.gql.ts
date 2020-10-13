@@ -81,6 +81,9 @@ export class TapeGql extends Query<TapeResponse> {
           user: $userId
         ){
           tapeUserId
+          score{
+            score
+          }
           history{
             tapeUserHistoryId
             details{

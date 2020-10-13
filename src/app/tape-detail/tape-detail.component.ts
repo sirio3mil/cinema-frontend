@@ -26,21 +26,23 @@ class SeasonDetail {
   selector: 'app-tape-detail',
   templateUrl: 'tape-detail.component.html',
   styles: [`
-    .star {
-      position: relative;
-      display: inline-block;
-      color: #d3d3d3;
-    }
-    .full {
-      color: #1e90ff;
-    }
-    .half {
-      position: absolute;
-      display: inline-block;
-      overflow: hidden;
-      color: #1e90ff;
-    }
-  `]
+             .star {
+               position : relative;
+               display  : inline-block;
+               color    : #d3d3d3;
+             }
+
+             .full {
+               color : #1e90ff;
+             }
+
+             .half {
+               position : absolute;
+               display  : inline-block;
+               overflow : hidden;
+               color    : #1e90ff;
+             }
+           `]
 })
 export class TapeDetailComponent implements OnInit {
   @Input() tape: Tape;
@@ -92,7 +94,7 @@ export class TapeDetailComponent implements OnInit {
 
   protected setRating() {
     if (this.tape.object.ranking && this.tape.object.ranking.calculatedScore) {
-      this.currentRate = +this.tape.object.ranking.calculatedScore;
+      this.currentRate = Math.round(this.tape.object.ranking.calculatedScore * 100) / 100;
     }
   }
 
