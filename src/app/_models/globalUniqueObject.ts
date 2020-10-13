@@ -1,6 +1,7 @@
-import {Tape} from './tape';
-import {ImdbNumber} from './imdbNumber';
-import {File} from './file';
+import { File } from './file';
+import { ImdbNumber } from './imdbNumber';
+import { Ranking } from './ranking';
+import { Tape } from './tape';
 
 export interface GlobalUniqueObject {
   tape: Tape;
@@ -9,4 +10,5 @@ export interface GlobalUniqueObject {
   thumbnail: File;
   cover: File;
   objectId: string;
+  ranking: Ranking;
 }

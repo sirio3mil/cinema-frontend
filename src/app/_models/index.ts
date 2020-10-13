@@ -42,3 +42,4 @@ export * from './fileSeason';
 export * from './image';
 export * from './people';
 export * from './tapeDefaultValue';
+export * from './ranking';
