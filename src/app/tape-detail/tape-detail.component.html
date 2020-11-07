@@ -65,8 +65,8 @@
         </ng-template>
         <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [max]="5"></ngb-rating>
         <ng-container *ngIf="currentRate > 0">
-          <p [ngClass]="{'mb-0': tape.tapeUser.score && tape.tapeUser.score.score > 0}">Rate: <b>{{currentRate}}</b></p>
-          <p *ngIf="tape.tapeUser.score && tape.tapeUser.score.score > 0">
+          <p [ngClass]="{'mb-0': tape.tapeUser && tape.tapeUser.score && tape.tapeUser.score.score > 0}">Rate: <b>{{currentRate}}</b></p>
+          <p *ngIf="tape.tapeUser && tape.tapeUser.score && tape.tapeUser.score.score > 0">
             Your rate: <b>{{tape.tapeUser.score.score}}</b>
           </p>
         </ng-container>
