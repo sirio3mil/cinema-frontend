@@ -35,7 +35,7 @@ export class ImportImdbMovieComponent implements OnInit {
     }
     this.importing = true;
     const variables = {
-      imdbNumber: this.f.imdbNumber.value
+      imdbNumber: +this.f.imdbNumber.value
     };
     this.importImdbMovieService.mutate(variables)
       .subscribe(result => {
