@@ -1,15 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthenticationService} from '../_services';
-import {map} from 'rxjs/operators';
-import {Subscription} from 'rxjs';
-import {TapeUser, User} from '../_models';
-import {ListTapeUserGql} from '../_gql';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { ListTapeUserGql } from '../_gql';
+import { TapeUser, User } from '../_models';
+import { AuthenticationService } from '../_services';
 
-@Component({templateUrl: 'tv-show.component.html'})
+@Component({ templateUrl: 'tv-show.component.html' })
 export class TvShowComponent implements OnInit, OnDestroy {
   private readonly currentUser: User;
   private subscriptions: Subscription[] = [];
   tapeUsers: TapeUser[];
+  totalItems = 0;
+  itemsPerPage = 16;
+  loading = false;
+  route = 'shows';
+  currentPage = 1;
 
   constructor(
     private listTapeUserGql: ListTapeUserGql,
@@ -19,28 +24,36 @@ export class TvShowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.load();
+    this.getPage(1);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  private load() {
+  getPage(page: number) {
+    this.loading = true;
     const variables = {
       userId: this.currentUser.userId,
       tapeUserStatusId: 2,
       isTvShow: true,
       visible: true,
       finished: false,
-      page: 1,
-      pageSize: 50
+      page,
+      pageSize: this.itemsPerPage
     };
     this.subscriptions.push(this.listTapeUserGql.watch(variables)
-      .valueChanges
-      .pipe(map(result => result.data.listTapeUser.elements))
-      .subscribe((items: TapeUser[]) => {
-        this.tapeUsers = items;
-      }));
+    .valueChanges
+    .pipe(
+      tap(res => {
+        this.totalItems = res.data.listTapeUser.total;
+        this.currentPage = page;
+        this.loading = false;
+      }),
+      map(res => res.data.listTapeUser.elements)
+    )
+    .subscribe((items: TapeUser[]) => {
+      this.tapeUsers = items;
+    }));
   }
 }
