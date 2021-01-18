@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Tape, User} from '../_models';
-import {faLink, faInfo, faTrash, faKissBeam, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import {faLink, faInfo, faTrash, faKissBeam, faPlusCircle, faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
 import {DeleteTapeUserHistoryGql} from '../_gql';
 import {AlertService, AuthenticationService} from '../_services';
 import {EditTapeUserComponent} from '../edit-tape-user';
@@ -19,6 +19,7 @@ export class TapeListCardComponent {
   faTrash = faTrash;
   faPlusCircle = faPlusCircle;
   faKissBeam = faKissBeam;
+  faExclamationTriangle = faExclamationTriangle;
   private readonly currentUser: User;
   private tapeUserStatusViewed = 2;
   private tapeUserStatusDownloaded = 1;
@@ -124,6 +125,25 @@ export class TapeListCardComponent {
           this.deleteFromWishList(tape);
         }
       });
+  }
+
+  haveMissingChapters(tape: Tape): boolean {
+    const tvShow = tape?.tvShow;
+    if (tvShow === undefined){
+      return false;
+    }
+    const lastChapter = tvShow?.lastChapter;
+    if (lastChapter === undefined){
+      return false;
+    }
+    const viewedChapter = tvShow?.summaryByUser?.viewedChapter;
+    if (viewedChapter === undefined){
+      return true;
+    }
+    if (+viewedChapter?.tape.tapeId !== +lastChapter?.tape.tapeId){
+      return true;
+    }
+    return false;
   }
 
   isWishListPage(route: string): boolean {

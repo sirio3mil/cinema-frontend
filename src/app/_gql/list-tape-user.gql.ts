@@ -36,7 +36,19 @@ export class ListTapeUserGql extends Query<ListTapeUserResponse> {
               lastChapter{
                 season,
                 chapter,
-                createdAt
+                createdAt,
+                tape{
+                  tapeId
+                }
+              },
+              summaryByUser(
+                user: $userId
+              ){
+                viewedChapter{
+                  tape{
+                    tapeId
+                  }
+                }
               }
             },
             object{

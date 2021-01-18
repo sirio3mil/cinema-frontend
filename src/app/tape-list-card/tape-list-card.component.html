@@ -21,6 +21,9 @@
           <a *ngIf="isDownloadedPage(route)" (click)="deleteFromDownloaded(tape, null)" class="btn btn-link m-1">
             <fa-icon [icon]="faTrash"></fa-icon>
           </a>
+          <span *ngIf="haveMissingChapters(tape)" class="btn btn-link m-1 text-danger">
+            <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+          </span>
         </div>
         <div class="card-body">
           <h5 class="card-title">{{tape.originalTitle}} {{tape.detail.year}}</h5>
