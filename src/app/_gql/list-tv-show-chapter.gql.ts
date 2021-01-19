@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Query} from 'apollo-angular';
-import gql from 'graphql-tag';
-import {ListTvShowChapterResponse} from '../_models';
+import { Injectable } from '@angular/core';
+import { gql, Query } from 'apollo-angular';
+import { ListTvShowChapterResponse } from '../_models';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ListTvShowChapterGql extends Query<ListTvShowChapterResponse> {
   document = gql`

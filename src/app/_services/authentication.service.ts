@@ -1,7 +1,7 @@
-﻿import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {LoginResponse, User} from '../_models';
-import {ApolloQueryResult} from 'apollo-client';
+﻿import { Injectable } from '@angular/core';
+import { ApolloQueryResult } from '@apollo/client/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { LoginResponse, User } from '../_models';
 
 @Injectable({
   providedIn: 'root'

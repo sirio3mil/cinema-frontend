@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Mutation} from 'apollo-angular';
-import gql from 'graphql-tag';
-import {ImportImdbEpisodeResponse} from '../_models';
+import { Injectable } from '@angular/core';
+import { gql, Mutation } from 'apollo-angular';
+import { ImportImdbEpisodeResponse } from '../_models';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ImportImdbEpisodeGql extends Mutation<ImportImdbEpisodeResponse> {
   document = gql`

@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Query} from 'apollo-angular';
-import gql from 'graphql-tag';
-import {TapeResponse} from '../_models';
+import { Injectable } from '@angular/core';
+import { gql, Query } from 'apollo-angular';
+import { TapeResponse } from '../_models';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TapeGql extends Query<TapeResponse> {
   document = gql`

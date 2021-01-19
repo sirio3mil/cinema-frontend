@@ -1,10 +1,9 @@
-import {Mutation} from 'apollo-angular';
-import {DeleteTapeUserHistoryResponse} from '../_models';
-import gql from 'graphql-tag';
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { gql, Mutation } from 'apollo-angular';
+import { DeleteTapeUserHistoryResponse } from '../_models';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class DeleteTapeUserHistoryGql extends Mutation<DeleteTapeUserHistoryResponse> {
   document = gql`

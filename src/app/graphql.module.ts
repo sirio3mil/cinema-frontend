@@ -1,53 +1,35 @@
-import {NgModule} from '@angular/core';
-import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
-import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http';
-import {InMemoryCache} from 'apollo-cache-inmemory';
+import { HttpHeaders } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { ApolloLink, InMemoryCache } from '@apollo/client/core';
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
 import { environment } from '../environments/environment';
-import {ApolloLink, concat} from 'apollo-link';
 import { AuthenticationService } from './_services';
-import {HttpHeaders} from '@angular/common/http';
-import { onError } from 'apollo-link-error';
-
-const link = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-      ),
-    );
-  }
-
-  if (networkError) { console.log(`[Network error]: ${networkError}`); }
-});
 
 const uri = environment.apiEndpoint;
 
-export function createApollo(httpLink: HttpLink, authenticationService: AuthenticationService) {
-  const currentUser = authenticationService.currentUserValue;
-  const authMiddleware = new ApolloLink((operation, forward) => {
-    if (currentUser && currentUser.token) {
-      // add the authorization to the headers
-      operation.setContext({
-        headers: new HttpHeaders().set('Authorization', `Bearer ${currentUser.token}`)
-      });
-    }
-
-    return forward(operation);
-  });
-  return {
-    link: concat(authMiddleware, httpLink.create({uri})),
-    cache: new InMemoryCache(),
-  };
-}
-
 @NgModule({
-  exports: [ApolloModule, HttpLinkModule],
   providers: [
     {
       provide: APOLLO_OPTIONS,
-      useFactory: createApollo,
-      deps: [HttpLink, AuthenticationService],
-    },
-  ],
+      useFactory(httpLink: HttpLink, authenticationService: AuthenticationService) {
+        const currentUser = authenticationService.currentUserValue;
+        const authMiddleware = new ApolloLink((operation, forward) => {
+          if (currentUser && currentUser.token) {
+            operation.setContext({
+              headers: new HttpHeaders().set('Authorization', `Bearer ${currentUser.token}`)
+            });
+          }
+
+          return forward(operation);
+        });
+        return {
+          link: authMiddleware.concat(httpLink.create({ uri })),
+          cache: new InMemoryCache()
+        };
+      },
+      deps: [HttpLink, AuthenticationService]
+    }
+  ]
 })
 export class GraphQLModule {}
