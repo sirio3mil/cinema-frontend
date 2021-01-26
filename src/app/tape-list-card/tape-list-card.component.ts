@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Tape, User} from '../_models';
+import { Tape, TapeUser, User } from '../_models';
 import {faLink, faInfo, faTrash, faKissBeam, faPlusCircle, faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
 import {DeleteTapeUserHistoryGql} from '../_gql';
 import {AlertService, AuthenticationService} from '../_services';
@@ -119,12 +119,12 @@ export class TapeListCardComponent {
     modalRef.componentInstance.title = tape.originalTitle;
     modalRef.componentInstance.tapeId = tape.tapeId;
     modalRef.result
-      .then(result => {
+      .then((result: TapeUser) => {
         tape.tapeUser = result;
         if (this.getTapeUserHistoryId(tape, this.tapeUserStatusViewed)) {
           this.deleteFromWishList(tape);
         }
-      });
+      }, () => {});
   }
 
   haveMissingChapters(tape: Tape): boolean {
@@ -140,10 +140,7 @@ export class TapeListCardComponent {
     if (viewedChapter === undefined){
       return true;
     }
-    if (+viewedChapter?.tape.tapeId !== +lastChapter?.tape.tapeId){
-      return true;
-    }
-    return false;
+    return +viewedChapter?.tape.tapeId !== +lastChapter?.tape.tapeId;
   }
 
   isWishListPage(route: string): boolean {
