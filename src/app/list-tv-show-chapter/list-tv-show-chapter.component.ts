@@ -73,7 +73,7 @@ export class ListTvShowChapterComponent implements OnInit, OnDestroy {
             }
           });
         });
-      });
+      }, () => {});
   }
 
   addTapeUser(chapter: TvShowChapter) {
@@ -83,7 +83,7 @@ export class ListTvShowChapterComponent implements OnInit, OnDestroy {
     modalRef.result
       .then((result: TapeUser) => {
         chapter.tape.tapeUser = result;
-      });
+      }, () => {});
   }
 
   isPending(chapter: TvShowChapter) {

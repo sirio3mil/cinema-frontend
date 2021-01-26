@@ -12,7 +12,7 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { angularMath } from 'angular-ts-math';
 import { EditTapeUserHistoryDetailGql, EditTvShowGql } from '../_gql';
-import { Tape, TvShowChapterSummary, User } from '../_models';
+import { Tape, TapeUser, TvShowChapterSummary, User } from '../_models';
 import { AlertService, AuthenticationService } from '../_services';
 import { EditTapeUserComponent } from '../edit-tape-user';
 
@@ -86,10 +86,10 @@ export class TapeDetailComponent implements OnInit {
     modalRef.componentInstance.title = this.tape.originalTitle;
     modalRef.componentInstance.tapeId = this.tape.tapeId;
     modalRef.result
-    .then(result => {
+    .then((result: TapeUser) => {
       this.tape.tapeUser = result;
       this.setTapeUserStatus();
-    });
+    }, () => {});
   }
 
   protected setRating() {
