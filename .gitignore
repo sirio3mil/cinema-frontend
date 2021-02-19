@@ -45,7 +45,6 @@ testem.log
 .DS_Store
 Thumbs.db
 /.graphqlconfig
-/config/nginx/cert/
-/logs/nginx/
+/docker/cert/
 /src/environments/environment.prod.ts
 /src/environments/environment.ts

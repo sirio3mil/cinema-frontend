@@ -1,0 +1,13 @@
+*
+!src/
+!e2e/
+!docker/
+!angular.json
+!karma.conf.js
+!package.json
+!package-lock.json
+!tsconfig.app.json
+!tsconfig.json
+!tsconfig.spec.json
+!tslint.json
+!.browserslistrc
